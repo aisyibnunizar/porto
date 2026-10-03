@@ -1,0 +1,4549 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="doc-title">
+      Rayhan Maulana — Creative Engineer & Full-Stack Craftsman
+    </title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Plus Jakarta Sans", "Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            colors: {
+              surface: {
+                base: "#07070e",
+                card: "rgba(16, 17, 28, 0.72)",
+                border: "rgba(255, 255, 255, 0.08)",
+                glow: "#6366f1",
+              },
+            },
+            animation: {
+              "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+              float: "float 5s ease-in-out infinite",
+              "eq-bar": "eqBounce 0.8s ease-in-out infinite alternate",
+            },
+            keyframes: {
+              float: {
+                "0%, 100%": { transform: "translateY(0px)" },
+                "50%": { transform: "translateY(-6px)" },
+              },
+              eqBounce: {
+                "0%": { height: "3px" },
+                "100%": { height: "18px" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <!-- Fonts & Lucide Icons CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #07070e;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #25283f;
+        border-radius: 9999px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #3b3e66;
+      }
+
+      .glass-panel {
+        background: rgba(13, 14, 25, 0.75);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .glass-panel-subtle {
+        background: rgba(22, 24, 40, 0.55);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .text-glow {
+        text-shadow: 0 0 24px rgba(99, 102, 241, 0.45);
+      }
+
+      .gradient-border {
+        position: relative;
+      }
+      .gradient-border::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(
+          135deg,
+          rgba(99, 102, 241, 0.6),
+          rgba(236, 72, 153, 0.25),
+          rgba(255, 255, 255, 0.06)
+        );
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+
+      @media (pointer: fine) {
+        body {
+          cursor: none !important;
+        }
+        a,
+        button,
+        input,
+        select,
+        textarea,
+        [data-interactive="true"] {
+          cursor: none !important;
+        }
+      }
+
+      #custom-cursor-dot {
+        pointer-events: none;
+        position: fixed;
+        width: 8px;
+        height: 8px;
+        background: #ffffff;
+        border-radius: 50%;
+        z-index: 99999;
+        transform: translate(-50%, -50%);
+        box-shadow:
+          0 0 10px rgba(255, 255, 255, 0.8),
+          0 0 20px rgba(99, 102, 241, 0.6);
+        transition:
+          width 0.15s ease,
+          height 0.15s ease,
+          background-color 0.2s ease,
+          opacity 0.2s ease;
+      }
+
+      #custom-cursor-ring {
+        pointer-events: none;
+        position: fixed;
+        width: 38px;
+        height: 38px;
+        border: 1.5px solid rgba(165, 180, 252, 0.45);
+        border-radius: 50%;
+        z-index: 99998;
+        transform: translate(-50%, -50%);
+        transition:
+          width 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+          height 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+          background 0.22s ease,
+          border-color 0.22s ease;
+      }
+
+      #custom-cursor-ring.cursor-hover {
+        width: 58px;
+        height: 58px;
+        background: rgba(99, 102, 241, 0.12);
+        border-color: rgba(165, 180, 252, 0.85);
+        backdrop-filter: blur(1.5px);
+      }
+
+      #custom-cursor-ring.cursor-down {
+        width: 30px;
+        height: 30px;
+        border-color: #ec4899;
+        background: rgba(236, 72, 153, 0.2);
+      }
+
+      #cursor-glow {
+        pointer-events: none;
+        position: fixed;
+        width: 550px;
+        height: 550px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(99, 102, 241, 0.14) 0%,
+          rgba(139, 92, 246, 0.05) 45%,
+          transparent 70%
+        );
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        transition: opacity 0.3s ease;
+      }
+
+      #fx-canvas {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 99990;
+      }
+
+      .tilt-card {
+        transform-style: preserve-3d;
+        perspective: 1000px;
+        transition:
+          transform 0.2s cubic-bezier(0.2, 0, 0.2, 1),
+          box-shadow 0.3s ease;
+        position: relative;
+      }
+      .tilt-glare {
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        background: radial-gradient(
+          circle at 50% 50%,
+          rgba(255, 255, 255, 0.15) 0%,
+          transparent 60%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+      }
+
+      .tactile-btn {
+        transition:
+          transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+          box-shadow 0.18s ease;
+      }
+      .tactile-btn:active {
+        transform: scale(0.94) translateY(2px) !important;
+      }
+
+      /* Animated Audio Equalizer Bars */
+      .eq-bar-item {
+        width: 3px;
+        border-radius: 9999px;
+        background: #818cf8;
+        transition: height 0.1s ease;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-[#07070e] text-zinc-100 font-sans selection:bg-indigo-500/30 selection:text-indigo-200 overflow-x-hidden relative min-h-screen"
+  >
+    <!-- High-Performance Interactive FX Canvas -->
+    <canvas id="fx-canvas"></canvas>
+
+    <!-- Global Dual-Ring Magnetic Cursor Elements -->
+    <div id="custom-cursor-dot" class="hidden md:block"></div>
+    <div id="custom-cursor-ring" class="hidden md:block"></div>
+
+    <!-- Interactive Cursor Glow Spotlight Tracker -->
+    <div id="cursor-glow" class="hidden md:block"></div>
+
+    <!-- Hidden Master Audio Player Element -->
+    <audio id="bg-audio-engine" preload="auto"></audio>
+
+    <!-- Background Video Canvas -->
+    <div
+      class="fixed inset-0 w-full h-full pointer-events-none -z-20 overflow-hidden"
+    >
+      <video
+        id="bg-video-element"
+        class="w-full h-full object-cover transition-opacity duration-700 opacity-60"
+        autoplay
+        loop
+        muted
+        playsinline
+      >
+        <source
+          id="bg-video-source"
+          src="https://assets.mixkit.co/videos/preview/mixkit-nebula-in-deep-space-with-stars-31608-large.mp4"
+          type="video/mp4"
+        />
+      </video>
+    </div>
+
+    <!-- Background Overlay -->
+    <div
+      id="bg-overlay"
+      class="fixed inset-0 w-full h-full pointer-events-none -z-10 bg-[#07070e]/80 backdrop-blur-[3px] transition-all duration-300"
+    ></div>
+
+    <!-- HEADER & NAVBAR -->
+    <header
+      class="fixed top-0 left-0 right-0 z-40 px-4 sm:px-8 py-4 transition-all duration-300"
+    >
+      <nav
+        class="max-w-6xl mx-auto flex items-center justify-between px-5 py-3 rounded-2xl glass-panel shadow-2xl border border-white/10"
+      >
+        <!-- Brand / Avatar Trigger (Hidden Secret Trigger: 5 rapid clicks) -->
+        <div class="flex items-center gap-3 select-none">
+          <button
+            id="secret-avatar-btn"
+            data-interactive="true"
+            title="Owner Signature (5x klik cepat untuk Mode Rahasia)"
+            class="tactile-btn w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-400 to-pink-500 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/30 hover:scale-105 active:scale-95 transition-transform focus:outline-none"
+          >
+            <span id="nav-initials">RM</span>
+          </button>
+          <div class="flex flex-col">
+            <a
+              href="#hero"
+              id="nav-name"
+              data-interactive="true"
+              class="font-bold text-sm tracking-tight text-white hover:text-indigo-300 transition-colors"
+              >Rayhan Maulana</a
+            >
+            <span
+              class="text-[11px] text-zinc-400 font-mono tracking-wider flex items-center gap-1.5"
+            >
+              <span
+                class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"
+              ></span>
+              <span id="nav-status-badge">Open for Collaborations</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Desktop Nav Links -->
+        <div
+          class="hidden md:flex items-center gap-7 text-sm font-medium text-zinc-300"
+        >
+          <a
+            href="#about"
+            data-interactive="true"
+            class="nav-link hover:text-white transition-colors relative py-1"
+            >Tentang</a
+          >
+          <a
+            href="#skills"
+            data-interactive="true"
+            class="nav-link hover:text-white transition-colors relative py-1"
+            >Keahlian</a
+          >
+          <a
+            href="#projects"
+            data-interactive="true"
+            class="nav-link hover:text-white transition-colors relative py-1"
+            >Portofolio</a
+          >
+          <a
+            href="#experience"
+            data-interactive="true"
+            class="nav-link hover:text-white transition-colors relative py-1"
+            >Pengalaman</a
+          >
+          <a
+            href="#contact"
+            data-interactive="true"
+            class="nav-link hover:text-white transition-colors relative py-1"
+            >Kontak</a
+          >
+        </div>
+
+        <!-- Right Nav Controls -->
+        <div class="flex items-center gap-2">
+          <!-- Click Sound FX Toggle -->
+          <button
+            id="toggle-click-sound"
+            data-interactive="true"
+            title="Haptic Tactile Click Sound FX"
+            class="tactile-btn p-2.5 rounded-xl glass-panel-subtle hover:bg-white/10 text-indigo-400 hover:text-indigo-300 transition-all text-sm border border-white/10 flex items-center gap-1.5"
+          >
+            <i
+              data-lucide="sparkles"
+              class="w-4 h-4 text-indigo-400 animate-pulse"
+            ></i>
+            <span
+              id="click-sound-status"
+              class="text-[10px] font-mono hidden sm:inline"
+              >FX ON</span
+            >
+          </button>
+
+          <!-- Quick Sound/Music Toggle Button -->
+          <button
+            id="nav-music-quick-btn"
+            data-interactive="true"
+            title="Musik Suasana (Putar/Jeda)"
+            class="tactile-btn p-2.5 rounded-xl glass-panel-subtle hover:bg-white/10 text-zinc-300 hover:text-indigo-300 transition-all text-sm border border-white/10 flex items-center gap-1.5"
+          >
+            <i data-lucide="music" id="nav-music-icon" class="w-4 h-4"></i>
+            <div id="nav-mini-eq" class="hidden flex items-end gap-0.5 h-3">
+              <span
+                class="w-0.5 bg-indigo-400 animate-[eqBounce_0.6s_ease-in-out_infinite_alternate] h-2"
+              ></span>
+              <span
+                class="w-0.5 bg-pink-400 animate-[eqBounce_0.8s_ease-in-out_0.2s_infinite_alternate] h-3"
+              ></span>
+              <span
+                class="w-0.5 bg-purple-400 animate-[eqBounce_0.5s_ease-in-out_0.1s_infinite_alternate] h-1.5"
+              ></span>
+            </div>
+          </button>
+
+          <!-- Contact CTA Button -->
+          <a
+            href="#contact"
+            id="nav-cta-btn"
+            data-interactive="true"
+            class="tactile-btn hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/30 transition-all"
+          >
+            <span>Mulai Diskusi</span>
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+          </a>
+
+          <!-- Mobile Hamburger -->
+          <button
+            id="mobile-menu-btn"
+            data-interactive="true"
+            class="tactile-btn md:hidden p-2 text-zinc-300 hover:text-white rounded-lg"
+          >
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Mobile Nav Menu -->
+      <div
+        id="mobile-nav"
+        class="hidden md:hidden max-w-6xl mx-auto mt-2 p-5 rounded-2xl glass-panel border border-white/10 flex flex-col gap-4 text-sm font-medium"
+      >
+        <a
+          href="#about"
+          class="mobile-nav-item py-1 text-zinc-300 hover:text-white"
+          >Tentang Saya</a
+        >
+        <a
+          href="#skills"
+          class="mobile-nav-item py-1 text-zinc-300 hover:text-white"
+          >Keahlian & Stack</a
+        >
+        <a
+          href="#projects"
+          class="mobile-nav-item py-1 text-zinc-300 hover:text-white"
+          >Proyek Pilihan</a
+        >
+        <a
+          href="#experience"
+          class="mobile-nav-item py-1 text-zinc-300 hover:text-white"
+          >Pengalaman</a
+        >
+        <a
+          href="#contact"
+          class="mobile-nav-item py-1 text-zinc-300 hover:text-white"
+          >Hubungi Saya</a
+        >
+      </div>
+    </header>
+
+    <!-- OPTIONAL FLOATING MUSIC WIDGET (Managed via Secret Studio) -->
+    <div
+      id="floating-music-widget"
+      class="fixed bottom-6 left-6 z-40 p-3 rounded-2xl glass-panel border border-indigo-500/25 shadow-2xl flex items-center gap-3 transition-all duration-300 max-w-xs sm:max-w-sm"
+    >
+      <div
+        class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-pink-500 flex items-center justify-center flex-shrink-0 shadow-md"
+      >
+        <i
+          data-lucide="disc-3"
+          class="w-5 h-5 text-white animate-spin"
+          style="animation-duration: 8s"
+        ></i>
+      </div>
+      <div class="min-w-0 flex-1">
+        <div class="flex items-center gap-1.5">
+          <span
+            class="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300"
+            >OST</span
+          >
+          <span
+            id="float-track-title"
+            class="text-xs font-bold text-white truncate"
+            >Cyberpunk Chill</span
+          >
+        </div>
+        <div
+          id="float-track-artist"
+          class="text-[10px] text-zinc-400 font-mono truncate"
+        >
+          Royalty Free Vibes
+        </div>
+      </div>
+      <div class="flex items-center gap-1">
+        <button
+          id="float-prev-btn"
+          data-interactive="true"
+          class="tactile-btn p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-white/5"
+          title="Lagu Sebelumnya"
+        >
+          <i data-lucide="skip-back" class="w-3.5 h-3.5"></i>
+        </button>
+        <button
+          id="float-play-btn"
+          data-interactive="true"
+          class="tactile-btn p-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-500"
+          title="Play/Pause"
+        >
+          <i data-lucide="play" id="float-play-icon" class="w-3.5 h-3.5"></i>
+        </button>
+        <button
+          id="float-next-btn"
+          data-interactive="true"
+          class="tactile-btn p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-white/5"
+          title="Lagu Selanjutnya"
+        >
+          <i data-lucide="skip-forward" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- SECRET PIN AUTHENTICATION MODAL -->
+    <div
+      id="secret-pin-modal"
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300"
+    >
+      <div
+        class="glass-panel border border-indigo-500/30 rounded-3xl max-w-sm w-full p-6 relative transform scale-95 transition-transform duration-300 shadow-2xl"
+      >
+        <button
+          id="close-pin-modal"
+          data-interactive="true"
+          class="tactile-btn absolute top-4 right-4 p-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors"
+        >
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+
+        <div class="flex items-center gap-3 mb-4">
+          <div
+            class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center"
+          >
+            <i data-lucide="shield-check" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-white text-sm">Owner Control Studio</h3>
+            <p class="text-[11px] text-zinc-400 font-mono">
+              Autentikasi Pemilik Portofolio
+            </p>
+          </div>
+        </div>
+
+        <p class="text-xs text-zinc-300 mb-4 leading-relaxed">
+          Masukkan PIN keamanan Anda untuk mengedit profil, proyek, video latar,
+          serta studio lagu & musik suasana secara rahasia.
+        </p>
+
+        <form id="pin-form" class="space-y-4">
+          <div>
+            <input
+              type="password"
+              id="secret-pin-input"
+              placeholder="••••"
+              maxlength="16"
+              class="w-full text-center tracking-[0.3em] text-xl px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500 font-mono"
+            />
+            <div
+              id="pin-error-msg"
+              class="text-rose-400 text-[11px] font-mono mt-1.5 hidden text-center"
+            >
+              PIN salah! Silakan coba lagi.
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <button
+              type="button"
+              id="cancel-pin-btn"
+              data-interactive="true"
+              class="tactile-btn flex-1 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 text-xs font-semibold transition-colors"
+            >
+              Batal
+            </button>
+            <button
+              type="submit"
+              data-interactive="true"
+              class="tactile-btn flex-1 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all shadow-lg shadow-indigo-600/30"
+            >
+              Buka Studio
+            </button>
+          </div>
+        </form>
+        <p class="text-[10px] text-zinc-500 text-center font-mono mt-4">
+          Shortcut: <span class="text-zinc-400">Ctrl + Shift + B</span> atau 5x
+          klik avatar
+        </p>
+      </div>
+    </div>
+
+    <!-- SECRET OWNER CMS FULL DRAWER / CONTROL CENTER -->
+    <aside
+      id="secret-admin-drawer"
+      class="fixed inset-y-0 right-0 w-full sm:w-[580px] z-50 transform translate-x-full transition-transform duration-300 ease-out glass-panel border-l border-indigo-500/25 shadow-2xl flex flex-col"
+    >
+      <!-- Drawer Header -->
+      <div
+        class="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-black/40"
+      >
+        <div class="flex items-center gap-2.5">
+          <span
+            class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"
+          ></span>
+          <i data-lucide="sliders" class="w-4 h-4 text-indigo-400"></i>
+          <h3 class="font-bold text-white text-sm">
+            Owner Master CMS & Soundtrack Studio
+          </h3>
+        </div>
+        <button
+          id="close-admin-drawer"
+          data-interactive="true"
+          class="tactile-btn p-1.5 rounded-lg hover:bg-white/10 text-zinc-400 hover:text-white transition-colors"
+          title="Tutup"
+        >
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- CMS Navigation Tabs -->
+      <div
+        class="flex border-b border-white/10 bg-black/20 text-xs font-mono overflow-x-auto px-4 py-2 gap-1.5"
+      >
+        <button
+          class="cms-tab-btn px-3 py-1.5 rounded-lg bg-indigo-600 text-white font-semibold flex items-center gap-1.5 whitespace-nowrap"
+          data-tab="tab-music"
+        >
+          <i data-lucide="music-4" class="w-3.5 h-3.5"></i>
+          <span>Lagu & Audio</span>
+        </button>
+        <button
+          class="cms-tab-btn px-3 py-1.5 rounded-lg text-zinc-400 hover:text-white glass-panel-subtle flex items-center gap-1.5 whitespace-nowrap"
+          data-tab="tab-profile"
+        >
+          <i data-lucide="user" class="w-3.5 h-3.5"></i>
+          <span>Profil & Teks</span>
+        </button>
+        <button
+          class="cms-tab-btn px-3 py-1.5 rounded-lg text-zinc-400 hover:text-white glass-panel-subtle flex items-center gap-1.5 whitespace-nowrap"
+          data-tab="tab-video"
+        >
+          <i data-lucide="film" class="w-3.5 h-3.5"></i>
+          <span>Video Latar</span>
+        </button>
+        <button
+          class="cms-tab-btn px-3 py-1.5 rounded-lg text-zinc-400 hover:text-white glass-panel-subtle flex items-center gap-1.5 whitespace-nowrap"
+          data-tab="tab-projects"
+        >
+          <i data-lucide="folder-git-2" class="w-3.5 h-3.5"></i>
+          <span>Proyek</span>
+        </button>
+        <button
+          class="cms-tab-btn px-3 py-1.5 rounded-lg text-zinc-400 hover:text-white glass-panel-subtle flex items-center gap-1.5 whitespace-nowrap"
+          data-tab="tab-skills"
+        >
+          <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+          <span>Keahlian</span>
+        </button>
+        <button
+          class="cms-tab-btn px-3 py-1.5 rounded-lg text-zinc-400 hover:text-white glass-panel-subtle flex items-center gap-1.5 whitespace-nowrap"
+          data-tab="tab-settings"
+        >
+          <i data-lucide="settings" class="w-3.5 h-3.5"></i>
+          <span>Sistem & PIN</span>
+        </button>
+      </div>
+
+      <!-- Drawer Tab Content (Scrollable) -->
+      <div class="p-6 overflow-y-auto flex-1 space-y-6 text-xs">
+        <!-- TAB 0: SECRET MUSIC & SOUNDTRACK STUDIO (NEW!) -->
+        <div id="tab-music" class="cms-tab-pane space-y-5">
+          <div
+            class="p-3.5 rounded-2xl bg-indigo-500/10 border border-indigo-500/25 flex items-start gap-3"
+          >
+            <div
+              class="w-8 h-8 rounded-xl bg-indigo-600/30 text-indigo-300 flex items-center justify-center flex-shrink-0 mt-0.5"
+            >
+              <i data-lucide="headphones" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="font-bold text-white text-xs">
+                Studio Lagu Latar Rahasia
+              </div>
+              <p class="text-[11px] text-zinc-400 leading-relaxed mt-0.5">
+                Atur soundtrack website portofolio Anda. Anda bisa memilih
+                preset ambient, menambahkan URL MP3 sendiri, atau mengunggah
+                lagu dari memori HP/Laptop Anda.
+              </p>
+            </div>
+          </div>
+
+          <!-- Live Mini Player in Drawer -->
+          <div
+            class="p-4 rounded-2xl bg-black/40 border border-white/10 space-y-3"
+          >
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-2.5 h-2.5 rounded-full bg-emerald-400"
+                  id="cms-music-status-dot"
+                ></div>
+                <span
+                  class="text-xs font-mono uppercase tracking-wider text-zinc-300 font-semibold"
+                  >Sedang Diputar</span
+                >
+              </div>
+              <!-- Mini animated equalizer bars -->
+              <div class="flex items-end gap-1 h-4" id="cms-eq-bars">
+                <span
+                  class="eq-bar-item h-2 animate-[eqBounce_0.6s_ease-in-out_infinite_alternate]"
+                ></span>
+                <span
+                  class="eq-bar-item h-4 animate-[eqBounce_0.9s_ease-in-out_0.2s_infinite_alternate]"
+                ></span>
+                <span
+                  class="eq-bar-item h-1 animate-[eqBounce_0.5s_ease-in-out_0.4s_infinite_alternate]"
+                ></span>
+                <span
+                  class="eq-bar-item h-3 animate-[eqBounce_0.7s_ease-in-out_0.1s_infinite_alternate]"
+                ></span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <div class="min-w-0">
+                <div
+                  id="cms-current-track-title"
+                  class="font-bold text-white text-sm truncate"
+                >
+                  Lofi Cyber Stream
+                </div>
+                <div
+                  id="cms-current-track-artist"
+                  class="text-[11px] text-zinc-400 font-mono truncate"
+                >
+                  Chillwave Resonance
+                </div>
+              </div>
+            </div>
+
+            <!-- Progress bar -->
+            <div class="space-y-1">
+              <input
+                type="range"
+                id="cms-track-progress"
+                min="0"
+                max="100"
+                value="0"
+                class="w-full h-1.5 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+              />
+              <div
+                class="flex justify-between text-[10px] font-mono text-zinc-500"
+              >
+                <span id="cms-track-curr-time">0:00</span>
+                <span id="cms-track-duration">0:00</span>
+              </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex items-center justify-center gap-3 pt-1">
+              <button
+                id="cms-music-prev"
+                data-interactive="true"
+                class="tactile-btn p-2 rounded-xl glass-panel-subtle hover:bg-white/10 text-zinc-300 hover:text-white"
+                title="Sebelumnya"
+              >
+                <i data-lucide="skip-back" class="w-4 h-4"></i>
+              </button>
+              <button
+                id="cms-music-play"
+                data-interactive="true"
+                class="tactile-btn p-3 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/30"
+                title="Play/Pause"
+              >
+                <i data-lucide="play" id="cms-play-icon" class="w-5 h-5"></i>
+              </button>
+              <button
+                id="cms-music-next"
+                data-interactive="true"
+                class="tactile-btn p-2 rounded-xl glass-panel-subtle hover:bg-white/10 text-zinc-300 hover:text-white"
+                title="Selanjutnya"
+              >
+                <i data-lucide="skip-forward" class="w-4 h-4"></i>
+              </button>
+              <button
+                id="cms-music-loop"
+                data-interactive="true"
+                class="tactile-btn p-2 rounded-xl glass-panel-subtle hover:bg-white/10 text-zinc-400 hover:text-indigo-400"
+                title="Ulangi Lagu (Loop)"
+              >
+                <i data-lucide="repeat" id="cms-loop-icon" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <!-- Volume slider & widget toggle -->
+            <div
+              class="pt-3 border-t border-white/10 grid grid-cols-2 gap-4 items-center"
+            >
+              <div class="flex items-center gap-2">
+                <i data-lucide="volume-2" class="w-4 h-4 text-zinc-400"></i>
+                <input
+                  type="range"
+                  id="cms-music-volume"
+                  min="0"
+                  max="100"
+                  value="70"
+                  class="w-full h-1.5 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+                />
+              </div>
+              <label
+                class="flex items-center justify-end gap-2 text-zinc-300 cursor-pointer select-none"
+              >
+                <input
+                  type="checkbox"
+                  id="cms-toggle-floating-widget"
+                  checked
+                  class="rounded border-zinc-700 text-indigo-600 focus:ring-indigo-500"
+                />
+                <span class="text-[11px] font-mono">Tampilkan Mini Widget</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Playlist Library -->
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <h4
+                class="font-bold text-white uppercase font-mono tracking-wider text-[11px] text-zinc-400"
+              >
+                Daftar Soundtrack Aktif
+              </h4>
+              <span
+                id="cms-track-count"
+                class="text-[10px] font-mono text-indigo-400"
+                >4 Lagu</span
+              >
+            </div>
+            <div
+              class="space-y-2 max-h-48 overflow-y-auto pr-1"
+              id="cms-playlist-container"
+            ></div>
+          </div>
+
+          <!-- Add New Music Source -->
+          <div class="pt-4 border-t border-white/10 space-y-3">
+            <label
+              class="block text-xs font-mono uppercase tracking-wider text-zinc-300"
+            >
+              <i
+                data-lucide="plus-circle"
+                class="w-3.5 h-3.5 inline mr-1 text-indigo-400"
+              ></i>
+              Tambah Lagu Baru
+            </label>
+
+            <div
+              class="flex rounded-xl bg-black/40 p-1 border border-white/10 text-xs font-mono"
+            >
+              <button
+                id="song-tab-btn-url"
+                class="flex-1 py-1.5 rounded-lg bg-indigo-600 text-white font-semibold transition-all"
+              >
+                Link URL Audio
+              </button>
+              <button
+                id="song-tab-btn-file"
+                class="flex-1 py-1.5 rounded-lg text-zinc-400 hover:text-white transition-all"
+              >
+                Upload File Lokal
+              </button>
+            </div>
+
+            <!-- URL Form -->
+            <div id="add-song-url-box" class="space-y-2">
+              <div class="grid grid-cols-2 gap-2">
+                <input
+                  type="text"
+                  id="new-song-title"
+                  placeholder="Judul Lagu (cth: Neon Dreams)"
+                  class="w-full text-xs px-3 py-2 rounded-xl bg-black/40 border border-white/10 focus:outline-none focus:border-indigo-500 text-zinc-200"
+                />
+                <input
+                  type="text"
+                  id="new-song-artist"
+                  placeholder="Artis (cth: Synthwave Producer)"
+                  class="w-full text-xs px-3 py-2 rounded-xl bg-black/40 border border-white/10 focus:outline-none focus:border-indigo-500 text-zinc-200"
+                />
+              </div>
+              <div class="flex gap-2">
+                <input
+                  type="url"
+                  id="new-song-url"
+                  placeholder="https://domain.com/soundtrack.mp3"
+                  class="w-full text-xs px-3 py-2 rounded-xl bg-black/40 border border-white/10 focus:outline-none focus:border-indigo-500 text-zinc-200 font-mono"
+                />
+                <button
+                  id="btn-add-song-url"
+                  data-interactive="true"
+                  class="tactile-btn px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs whitespace-nowrap flex items-center gap-1"
+                >
+                  <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                  <span>Tambah</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Local File Upload Form -->
+            <div id="add-song-file-box" class="hidden space-y-2">
+              <label
+                for="local-audio-input"
+                data-interactive="true"
+                class="tactile-btn w-full border-2 border-dashed border-white/15 hover:border-indigo-500/50 rounded-xl p-4 flex flex-col items-center justify-center cursor-pointer transition-colors bg-black/20 group"
+              >
+                <i
+                  data-lucide="music-2"
+                  class="w-7 h-7 text-indigo-400 group-hover:scale-110 transition-transform"
+                ></i>
+                <span class="text-xs font-medium text-zinc-300 mt-2"
+                  >Pilih File Lagu MP3/WAV/OGG dari Perangkat</span
+                >
+                <span class="text-[10px] text-zinc-500 mt-0.5"
+                  >Diputar instan tanpa membebani server</span
+                >
+                <input
+                  type="file"
+                  id="local-audio-input"
+                  accept="audio/mp3,audio/wav,audio/ogg,audio/m4a,audio/*"
+                  class="hidden"
+                />
+              </label>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <button
+              id="btn-reset-playlist"
+              data-interactive="true"
+              class="tactile-btn w-full py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white text-xs font-mono transition-colors flex items-center justify-center gap-2"
+            >
+              <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+              <span>Kembalikan Playlist Default</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 1: Profile & Identity -->
+        <div id="tab-profile" class="cms-tab-pane hidden space-y-5">
+          <div
+            class="p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-200 leading-relaxed flex items-start gap-2"
+          >
+            <i
+              data-lucide="sparkles"
+              class="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5"
+            ></i>
+            <span
+              >Perubahan teks langsung diperbarui di browser dan disimpan
+              permanen di LocalStorage.</span
+            >
+          </div>
+
+          <div class="space-y-4">
+            <h4
+              class="font-bold text-white uppercase font-mono tracking-wider text-[11px] text-zinc-400"
+            >
+              Identitas Utama
+            </h4>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-zinc-400 font-mono mb-1"
+                  >Nama Lengkap</label
+                >
+                <input
+                  type="text"
+                  id="cms-input-name"
+                  class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white focus:outline-none focus:border-indigo-500"
+                />
+              </div>
+              <div>
+                <label class="block text-zinc-400 font-mono mb-1"
+                  >Inisial Logo (Avatar)</label
+                >
+                <input
+                  type="text"
+                  id="cms-input-initials"
+                  maxlength="4"
+                  class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-mono"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-zinc-400 font-mono mb-1"
+                >Headline Utama (Hero Title)</label
+              >
+              <input
+                type="text"
+                id="cms-input-hero-title"
+                class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white focus:outline-none focus:border-indigo-500"
+              />
+            </div>
+
+            <div>
+              <label class="block text-zinc-400 font-mono mb-1"
+                >Daftar Role Dynamic Typing (Pisahkan koma)</label
+              >
+              <input
+                type="text"
+                id="cms-input-roles"
+                class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-mono"
+                placeholder="Full-Stack Engineer, UI Designer, System Architect"
+              />
+            </div>
+
+            <div>
+              <label class="block text-zinc-400 font-mono mb-1"
+                >Pill Ketersediaan (Hero Badge)</label
+              >
+              <input
+                type="text"
+                id="cms-input-hero-pill"
+                class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white focus:outline-none focus:border-indigo-500"
+              />
+            </div>
+
+            <div>
+              <label class="block text-zinc-400 font-mono mb-1"
+                >Status Ketersediaan Navbar</label
+              >
+              <input
+                type="text"
+                id="cms-input-status-badge"
+                class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white focus:outline-none focus:border-indigo-500"
+              />
+            </div>
+
+            <div>
+              <label class="block text-zinc-400 font-mono mb-1"
+                >Lokasi Domisili</label
+              >
+              <input
+                type="text"
+                id="cms-input-location"
+                class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white focus:outline-none focus:border-indigo-500"
+              />
+            </div>
+
+            <div>
+              <label class="block text-zinc-400 font-mono mb-1"
+                >Paragraf Bio 1 (Tentang Saya)</label
+              >
+              <textarea
+                id="cms-input-bio1"
+                rows="3"
+                class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white focus:outline-none focus:border-indigo-500"
+              ></textarea>
+            </div>
+
+            <div>
+              <label class="block text-zinc-400 font-mono mb-1"
+                >Paragraf Bio 2</label
+              >
+              <textarea
+                id="cms-input-bio2"
+                rows="3"
+                class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white focus:outline-none focus:border-indigo-500"
+              ></textarea>
+            </div>
+
+            <div>
+              <label class="block text-zinc-400 font-mono mb-1"
+                >Kutipan / Filosofi Pribadi</label
+              >
+              <input
+                type="text"
+                id="cms-input-quote"
+                class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white focus:outline-none focus:border-indigo-500 italic"
+              />
+            </div>
+
+            <h4
+              class="font-bold text-white uppercase font-mono tracking-wider text-[11px] text-zinc-400 pt-3 border-t border-white/10"
+            >
+              Angka Statistik (Stats Bar)
+            </h4>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-zinc-400 font-mono mb-1"
+                  >Stat 1 Nilai & Label</label
+                >
+                <input
+                  type="text"
+                  id="cms-input-stat1-val"
+                  class="w-full px-3 py-1.5 rounded-lg bg-black/40 border border-white/10 text-white font-mono mb-1"
+                />
+                <input
+                  type="text"
+                  id="cms-input-stat1-lbl"
+                  class="w-full px-3 py-1.5 rounded-lg bg-black/40 border border-white/10 text-zinc-300"
+                />
+              </div>
+              <div>
+                <label class="block text-zinc-400 font-mono mb-1"
+                  >Stat 2 Nilai & Label</label
+                >
+                <input
+                  type="text"
+                  id="cms-input-stat2-val"
+                  class="w-full px-3 py-1.5 rounded-lg bg-black/40 border border-white/10 text-white font-mono mb-1"
+                />
+                <input
+                  type="text"
+                  id="cms-input-stat2-lbl"
+                  class="w-full px-3 py-1.5 rounded-lg bg-black/40 border border-white/10 text-zinc-300"
+                />
+              </div>
+              <div>
+                <label class="block text-zinc-400 font-mono mb-1"
+                  >Stat 3 Nilai & Label</label
+                >
+                <input
+                  type="text"
+                  id="cms-input-stat3-val"
+                  class="w-full px-3 py-1.5 rounded-lg bg-black/40 border border-white/10 text-white font-mono mb-1"
+                />
+                <input
+                  type="text"
+                  id="cms-input-stat3-lbl"
+                  class="w-full px-3 py-1.5 rounded-lg bg-black/40 border border-white/10 text-zinc-300"
+                />
+              </div>
+              <div>
+                <label class="block text-zinc-400 font-mono mb-1"
+                  >Stat 4 Nilai & Label</label
+                >
+                <input
+                  type="text"
+                  id="cms-input-stat4-val"
+                  class="w-full px-3 py-1.5 rounded-lg bg-black/40 border border-white/10 text-white font-mono mb-1"
+                />
+                <input
+                  type="text"
+                  id="cms-input-stat4-lbl"
+                  class="w-full px-3 py-1.5 rounded-lg bg-black/40 border border-white/10 text-zinc-300"
+                />
+              </div>
+            </div>
+
+            <h4
+              class="font-bold text-white uppercase font-mono tracking-wider text-[11px] text-zinc-400 pt-3 border-t border-white/10"
+            >
+              Kontak & Media Sosial
+            </h4>
+            <div class="space-y-2">
+              <div>
+                <label class="block text-zinc-400 font-mono mb-1"
+                  >Email Publik</label
+                >
+                <input
+                  type="email"
+                  id="cms-input-email"
+                  class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white font-mono"
+                />
+              </div>
+              <div>
+                <label class="block text-zinc-400 font-mono mb-1"
+                  >GitHub URL</label
+                >
+                <input
+                  type="url"
+                  id="cms-input-github"
+                  class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white font-mono"
+                />
+              </div>
+              <div>
+                <label class="block text-zinc-400 font-mono mb-1"
+                  >LinkedIn URL</label
+                >
+                <input
+                  type="url"
+                  id="cms-input-linkedin"
+                  class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white font-mono"
+                />
+              </div>
+              <div>
+                <label class="block text-zinc-400 font-mono mb-1"
+                  >Link Unduh CV</label
+                >
+                <input
+                  type="text"
+                  id="cms-input-cv-url"
+                  class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white font-mono"
+                  placeholder="https://example.com/cv.pdf"
+                />
+              </div>
+            </div>
+
+            <button
+              id="save-profile-btn"
+              data-interactive="true"
+              class="tactile-btn w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 transition-all mt-4"
+            >
+              <i data-lucide="check" class="w-4 h-4"></i>
+              <span>Terapkan Perubahan Profil</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 2: Atmosphere & Background Video Studio -->
+        <div id="tab-video" class="cms-tab-pane hidden space-y-6">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <label
+                class="text-xs font-mono uppercase tracking-wider text-zinc-400"
+                >Koleksi Video Aktif</label
+              >
+              <span
+                id="active-video-count"
+                class="text-[10px] font-mono text-indigo-400"
+                >4 Video</span
+              >
+            </div>
+            <div
+              class="space-y-2 max-h-48 overflow-y-auto pr-1"
+              id="presets-container"
+            ></div>
+          </div>
+
+          <div class="pt-4 border-t border-white/10 space-y-3">
+            <label
+              class="block text-xs font-mono uppercase tracking-wider text-zinc-300"
+            >
+              <i
+                data-lucide="plus-circle"
+                class="w-3.5 h-3.5 inline mr-1 text-indigo-400"
+              ></i>
+              Tambah Video Latar Baru
+            </label>
+
+            <div
+              class="flex rounded-xl bg-black/40 p-1 border border-white/10 text-xs font-mono"
+            >
+              <button
+                id="tab-btn-url"
+                class="flex-1 py-1.5 rounded-lg bg-indigo-600 text-white font-semibold transition-all"
+              >
+                Link URL MP4
+              </button>
+              <button
+                id="tab-btn-file"
+                class="flex-1 py-1.5 rounded-lg text-zinc-400 hover:text-white transition-all"
+              >
+                Upload File Lokal
+              </button>
+            </div>
+
+            <div id="add-url-container" class="space-y-2">
+              <input
+                type="text"
+                id="custom-video-title"
+                placeholder="Nama Video (cth: Cyber Rain Neon)"
+                class="w-full text-xs px-3 py-2 rounded-xl bg-black/40 border border-white/10 focus:outline-none focus:border-indigo-500 text-zinc-200"
+              />
+              <div class="flex gap-2">
+                <input
+                  type="url"
+                  id="custom-video-input"
+                  placeholder="https://assets.mixkit.co/...mp4"
+                  class="w-full text-xs px-3 py-2 rounded-xl bg-black/40 border border-white/10 focus:outline-none focus:border-indigo-500 text-zinc-200 font-mono"
+                />
+                <button
+                  id="apply-custom-video"
+                  data-interactive="true"
+                  class="tactile-btn px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1"
+                >
+                  <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                  <span>Tambah</span>
+                </button>
+              </div>
+            </div>
+
+            <div id="add-file-container" class="hidden space-y-2">
+              <label
+                for="local-video-input"
+                data-interactive="true"
+                class="tactile-btn w-full border-2 border-dashed border-white/15 hover:border-indigo-500/50 rounded-xl p-4 flex flex-col items-center justify-center cursor-pointer transition-colors bg-black/20 group"
+              >
+                <i
+                  data-lucide="upload-cloud"
+                  class="w-7 h-7 text-indigo-400 group-hover:scale-110 transition-transform"
+                ></i>
+                <span class="text-xs font-medium text-zinc-300 mt-2"
+                  >Pilih Video MP4/WebM dari Perangkat Anda</span
+                >
+                <span class="text-[10px] text-zinc-500 mt-0.5"
+                  >Diproses instan di peramban</span
+                >
+                <input
+                  type="file"
+                  id="local-video-input"
+                  accept="video/mp4,video/webm,video/ogg"
+                  class="hidden"
+                />
+              </label>
+            </div>
+          </div>
+
+          <!-- Sliders for Opacity, Blur & Playback -->
+          <div class="space-y-4 pt-4 border-t border-white/10">
+            <div>
+              <div class="flex justify-between text-xs text-zinc-300 mb-1">
+                <span>Transparansi Video (Opacity)</span>
+                <span id="opacity-label" class="font-mono text-indigo-400"
+                  >60%</span
+                >
+              </div>
+              <input
+                type="range"
+                id="opacity-slider"
+                min="10"
+                max="100"
+                value="60"
+                class="w-full h-1.5 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+              />
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs text-zinc-300 mb-1">
+                <span>Efek Blur Overlay</span>
+                <span id="blur-label" class="font-mono text-indigo-400"
+                  >3px</span
+                >
+              </div>
+              <input
+                type="range"
+                id="blur-slider"
+                min="0"
+                max="20"
+                value="3"
+                class="w-full h-1.5 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+              />
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs text-zinc-300 mb-1">
+                <span>Kecepatan Pemutaran Video</span>
+                <span id="speed-label" class="font-mono text-indigo-400"
+                  >1.0x</span
+                >
+              </div>
+              <input
+                type="range"
+                id="speed-slider"
+                min="0.5"
+                max="2.0"
+                step="0.25"
+                value="1.0"
+                class="w-full h-1.5 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+              />
+            </div>
+          </div>
+
+          <div class="flex gap-2 pt-2">
+            <button
+              id="toggle-video-mute"
+              data-interactive="true"
+              class="tactile-btn flex-1 py-2.5 text-xs text-zinc-300 hover:text-white rounded-xl glass-panel-subtle hover:bg-white/10 border border-white/10 flex items-center justify-center gap-2 transition-colors"
+            >
+              <i
+                data-lucide="volume-x"
+                id="video-mute-icon"
+                class="w-4 h-4"
+              ></i>
+              <span id="video-mute-text">Suara Video: Off</span>
+            </button>
+            <button
+              id="reset-bg-settings"
+              data-interactive="true"
+              class="tactile-btn px-4 py-2.5 text-xs text-zinc-400 hover:text-white rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
+              title="Kembalikan Default"
+            >
+              <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 3: Projects CRUD Manager -->
+        <div id="tab-projects" class="cms-tab-pane hidden space-y-5">
+          <div class="flex items-center justify-between">
+            <h4
+              class="font-bold text-white uppercase font-mono tracking-wider text-[11px] text-zinc-400"
+            >
+              Daftar Karya Portofolio
+            </h4>
+            <button
+              id="btn-show-add-project"
+              data-interactive="true"
+              class="tactile-btn px-2.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-[11px] font-semibold flex items-center gap-1"
+            >
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              <span>Tambah Proyek</span>
+            </button>
+          </div>
+
+          <form
+            id="project-form"
+            class="hidden p-4 rounded-2xl bg-black/40 border border-indigo-500/30 space-y-3"
+          >
+            <div
+              class="flex justify-between items-center pb-2 border-b border-white/10"
+            >
+              <span id="project-form-title" class="font-bold text-white text-xs"
+                >Tambah Proyek Baru</span
+              >
+              <button
+                type="button"
+                id="cancel-project-form"
+                data-interactive="true"
+                class="tactile-btn text-zinc-400 hover:text-white"
+              >
+                <i data-lucide="x" class="w-4 h-4"></i>
+              </button>
+            </div>
+            <input type="hidden" id="project-edit-id" />
+
+            <div>
+              <label class="block text-zinc-400 font-mono mb-1"
+                >Judul Proyek *</label
+              >
+              <input
+                type="text"
+                id="project-input-title"
+                required
+                class="w-full px-3 py-1.5 rounded-lg bg-zinc-900 border border-white/10 text-white"
+              />
+            </div>
+
+            <div>
+              <label class="block text-zinc-400 font-mono mb-1"
+                >Tagline Singkat *</label
+              >
+              <input
+                type="text"
+                id="project-input-tagline"
+                required
+                placeholder="Contoh: Real-time telemetry dashboard"
+                class="w-full px-3 py-1.5 rounded-lg bg-zinc-900 border border-white/10 text-white"
+              />
+            </div>
+
+            <div>
+              <label class="block text-zinc-400 font-mono mb-1"
+                >Deskripsi Lengkap *</label
+              >
+              <textarea
+                id="project-input-desc"
+                rows="3"
+                required
+                class="w-full px-3 py-1.5 rounded-lg bg-zinc-900 border border-white/10 text-white"
+              ></textarea>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-zinc-400 font-mono mb-1"
+                  >Badge / Kategori</label
+                >
+                <input
+                  type="text"
+                  id="project-input-badge"
+                  placeholder="Production SaaS"
+                  class="w-full px-3 py-1.5 rounded-lg bg-zinc-900 border border-white/10 text-white"
+                />
+              </div>
+              <div>
+                <label class="block text-zinc-400 font-mono mb-1"
+                  >Gradient Visual</label
+                >
+                <select
+                  id="project-input-gradient"
+                  class="w-full px-3 py-1.5 rounded-lg bg-zinc-900 border border-white/10 text-white"
+                >
+                  <option
+                    value="from-blue-600/40 via-indigo-600/20 to-purple-800/10"
+                  >
+                    Indigo Blue
+                  </option>
+                  <option
+                    value="from-pink-600/40 via-purple-600/20 to-indigo-800/10"
+                  >
+                    Purple Pink
+                  </option>
+                  <option
+                    value="from-emerald-600/40 via-teal-600/20 to-cyan-800/10"
+                  >
+                    Emerald Cyan
+                  </option>
+                  <option
+                    value="from-amber-600/40 via-orange-600/20 to-red-800/10"
+                  >
+                    Amber Sunset
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-zinc-400 font-mono mb-1"
+                >Teknologi (Pisahkan dengan koma)</label
+              >
+              <input
+                type="text"
+                id="project-input-tags"
+                placeholder="Next.js, TypeScript, Go, Docker"
+                class="w-full px-3 py-1.5 rounded-lg bg-zinc-900 border border-white/10 text-white font-mono"
+              />
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-zinc-400 font-mono mb-1"
+                  >URL Live Demo</label
+                >
+                <input
+                  type="url"
+                  id="project-input-demo"
+                  placeholder="https://..."
+                  class="w-full px-3 py-1.5 rounded-lg bg-zinc-900 border border-white/10 text-white font-mono"
+                />
+              </div>
+              <div>
+                <label class="block text-zinc-400 font-mono mb-1"
+                  >URL GitHub</label
+                >
+                <input
+                  type="url"
+                  id="project-input-github"
+                  placeholder="https://github.com/..."
+                  class="w-full px-3 py-1.5 rounded-lg bg-zinc-900 border border-white/10 text-white font-mono"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              data-interactive="true"
+              class="tactile-btn w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs"
+            >
+              Simpan Proyek
+            </button>
+          </form>
+
+          <div class="space-y-2.5" id="cms-project-list"></div>
+        </div>
+
+        <!-- TAB 4: Skills & Tech Stack Manager -->
+        <div id="tab-skills" class="cms-tab-pane hidden space-y-5">
+          <div class="flex items-center justify-between">
+            <h4
+              class="font-bold text-white uppercase font-mono tracking-wider text-[11px] text-zinc-400"
+            >
+              Kelola Tech Stack
+            </h4>
+          </div>
+
+          <form
+            id="skill-form"
+            class="p-3.5 rounded-xl bg-black/40 border border-white/10 space-y-3"
+          >
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-zinc-400 font-mono mb-1"
+                  >Nama Teknologi</label
+                >
+                <input
+                  type="text"
+                  id="skill-input-name"
+                  required
+                  placeholder="cth: Rust / WebAssembly"
+                  class="w-full px-3 py-1.5 rounded-lg bg-zinc-900 border border-white/10 text-white"
+                />
+              </div>
+              <div>
+                <label class="block text-zinc-400 font-mono mb-1"
+                  >Kategori</label
+                >
+                <select
+                  id="skill-input-category"
+                  class="w-full px-3 py-1.5 rounded-lg bg-zinc-900 border border-white/10 text-white"
+                >
+                  <option value="frontend">Frontend & Creative</option>
+                  <option value="backend">Backend & Database</option>
+                  <option value="devops">DevOps & Tools</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-zinc-400 font-mono mb-1"
+                  >Level Kemahiran</label
+                >
+                <input
+                  type="text"
+                  id="skill-input-level"
+                  required
+                  placeholder="Mastery / Proficient"
+                  class="w-full px-3 py-1.5 rounded-lg bg-zinc-900 border border-white/10 text-white"
+                />
+              </div>
+              <div>
+                <label class="block text-zinc-400 font-mono mb-1"
+                  >Persentase (Score)</label
+                >
+                <input
+                  type="number"
+                  id="skill-input-rating"
+                  min="10"
+                  max="100"
+                  value="90"
+                  required
+                  class="w-full px-3 py-1.5 rounded-lg bg-zinc-900 border border-white/10 text-white font-mono"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              data-interactive="true"
+              class="tactile-btn w-full py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-1.5"
+            >
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              <span>Tambahkan Keahlian</span>
+            </button>
+          </form>
+
+          <div
+            class="space-y-2 max-h-64 overflow-y-auto pr-1"
+            id="cms-skill-list"
+          ></div>
+        </div>
+
+        <!-- TAB 5: System Settings, Backup, Restore & PIN -->
+        <div id="tab-settings" class="cms-tab-pane hidden space-y-6">
+          <!-- Change PIN -->
+          <div
+            class="p-4 rounded-2xl bg-black/40 border border-white/10 space-y-3"
+          >
+            <h4
+              class="font-bold text-white text-xs font-mono uppercase tracking-wider flex items-center gap-1.5"
+            >
+              <i data-lucide="key" class="w-4 h-4 text-indigo-400"></i>
+              <span>Ganti PIN Rahasia</span>
+            </h4>
+            <p class="text-[11px] text-zinc-400">
+              PIN digunakan untuk membuka menu kontrol rahasia ini.
+            </p>
+            <div class="flex gap-2">
+              <input
+                type="password"
+                id="new-pin-input"
+                placeholder="PIN baru (min. 4 karakter)"
+                maxlength="16"
+                class="flex-1 px-3 py-2 rounded-xl bg-zinc-900 border border-white/10 text-white font-mono"
+              />
+              <button
+                id="save-new-pin-btn"
+                data-interactive="true"
+                class="tactile-btn px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs whitespace-nowrap"
+              >
+                Simpan PIN
+              </button>
+            </div>
+          </div>
+
+          <!-- Backup & Restore Data JSON -->
+          <div
+            class="p-4 rounded-2xl bg-black/40 border border-white/10 space-y-3"
+          >
+            <h4
+              class="font-bold text-white text-xs font-mono uppercase tracking-wider flex items-center gap-1.5"
+            >
+              <i data-lucide="database" class="w-4 h-4 text-emerald-400"></i>
+              <span>Cadangkan & Pulihkan Data (JSON)</span>
+            </h4>
+            <p class="text-[11px] text-zinc-400">
+              Ekspor seluruh data konfigurasi website portofolio termasuk
+              playlist lagu ke file JSON.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-2">
+              <button
+                id="export-json-btn"
+                data-interactive="true"
+                class="tactile-btn flex-1 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors"
+              >
+                <i data-lucide="download" class="w-4 h-4"></i>
+                <span>Export Data JSON</span>
+              </button>
+
+              <label
+                for="import-json-input"
+                data-interactive="true"
+                class="tactile-btn flex-1 py-2.5 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/40 text-indigo-200 border border-indigo-500/30 font-semibold text-xs flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+              >
+                <i data-lucide="upload" class="w-4 h-4"></i>
+                <span>Import Data JSON</span>
+                <input
+                  type="file"
+                  id="import-json-input"
+                  accept=".json"
+                  class="hidden"
+                />
+              </label>
+            </div>
+          </div>
+
+          <!-- Reset to Default Data -->
+          <div
+            class="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 space-y-3"
+          >
+            <h4
+              class="font-bold text-rose-300 text-xs font-mono uppercase tracking-wider flex items-center gap-1.5"
+            >
+              <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-400"></i>
+              <span>Reset ke Pengaturan Awal</span>
+            </h4>
+            <p class="text-[11px] text-zinc-400">
+              Mengembalikan teks, profil, video, dan playlist lagu ke
+              konfigurasi bawaan.
+            </p>
+            <button
+              id="reset-all-data-btn"
+              data-interactive="true"
+              class="tactile-btn w-full py-2.5 rounded-xl bg-rose-600/80 hover:bg-rose-600 text-white font-semibold text-xs transition-colors"
+            >
+              Reset Seluruh Konten Portofolio
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drawer Footer: Lock Admin -->
+      <div class="p-4 border-t border-white/10 bg-black/50 flex gap-2">
+        <button
+          id="lock-admin-btn"
+          data-interactive="true"
+          class="tactile-btn flex-1 py-3 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 font-semibold text-xs flex items-center justify-center gap-2 transition-colors"
+        >
+          <i data-lucide="lock" class="w-4 h-4"></i>
+          <span>Kunci & Sembunyikan Mode Rahasia</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN PORTFOLIO SECTIONS -->
+    <main
+      class="max-w-6xl mx-auto px-4 sm:px-8 relative pt-32 pb-24 space-y-36"
+    >
+      <!-- HERO SECTION -->
+      <section
+        id="hero"
+        class="min-h-[75vh] flex flex-col justify-center items-start relative"
+      >
+        <div
+          id="hero-pill-badge"
+          data-interactive="true"
+          class="tactile-btn inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel border border-indigo-500/30 text-indigo-300 text-xs font-mono font-medium mb-6 animate-pulse-slow"
+        >
+          <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
+          <span id="hero-pill-text"
+            >Crafting Scalable Web Architecture & Fluid Creative
+            Interfaces</span
+          >
+        </div>
+
+        <h1
+          id="hero-heading"
+          class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.15] max-w-4xl"
+        >
+          Membangun ekosistem web yang
+          <span
+            class="bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent text-glow"
+            >berjiwa estetis</span
+          >
+          dan berperforma tinggi.
+        </h1>
+
+        <p
+          class="mt-6 text-lg sm:text-xl text-zinc-300 max-w-2xl font-normal leading-relaxed"
+        >
+          Halo, saya
+          <span id="hero-name" class="text-white font-semibold"
+            >Rayhan Maulana</span
+          >
+          — seorang
+          <span
+            id="typing-text"
+            class="text-indigo-400 font-mono font-semibold underline decoration-indigo-500/50"
+            >Full-Stack Engineer</span
+          >. Saya memadukan kepekaan seni antarmuka dengan fondasi rekayasa
+          sistem yang tangguh.
+        </p>
+
+        <div class="mt-10 flex flex-wrap gap-4 items-center">
+          <a
+            href="#projects"
+            data-interactive="true"
+            class="tactile-btn px-6 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm shadow-xl shadow-indigo-600/30 flex items-center gap-2"
+          >
+            <span>Eksplorasi Karya Saya</span>
+            <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+          </a>
+
+          <a
+            href="#contact"
+            data-interactive="true"
+            class="tactile-btn px-6 py-3.5 rounded-2xl glass-panel hover:bg-white/10 text-zinc-200 font-semibold text-sm border border-white/10 flex items-center gap-2"
+          >
+            <i data-lucide="message-square" class="w-4 h-4 text-indigo-400"></i>
+            <span>Ajak Berdiskusi</span>
+          </a>
+
+          <button
+            id="copy-email-btn"
+            data-interactive="true"
+            class="tactile-btn px-4 py-3.5 rounded-2xl glass-panel-subtle hover:bg-white/10 text-zinc-400 hover:text-white text-sm border border-white/10 flex items-center gap-2"
+            title="Salin Email"
+          >
+            <i data-lucide="copy" class="w-4 h-4"></i>
+            <span id="hero-email-display" class="text-xs font-mono"
+              >rayhan.dev@domain.id</span
+            >
+          </button>
+        </div>
+
+        <!-- Stats Bar -->
+        <div
+          class="mt-16 w-full grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 border-t border-white/10"
+        >
+          <div
+            class="glass-panel p-4 rounded-2xl tilt-card"
+            data-interactive="true"
+          >
+            <div class="tilt-glare"></div>
+            <div
+              class="text-2xl sm:text-3xl font-extrabold text-white font-mono"
+              id="stat-1-val"
+            >
+              28+
+            </div>
+            <div class="text-xs text-zinc-400 mt-1" id="stat-1-lbl">
+              Proyek Selesai & Rilis
+            </div>
+          </div>
+          <div
+            class="glass-panel p-4 rounded-2xl tilt-card"
+            data-interactive="true"
+          >
+            <div class="tilt-glare"></div>
+            <div
+              class="text-2xl sm:text-3xl font-extrabold text-indigo-400 font-mono"
+              id="stat-2-val"
+            >
+              4+
+            </div>
+            <div class="text-xs text-zinc-400 mt-1" id="stat-2-lbl">
+              Tahun Pengalaman Coding
+            </div>
+          </div>
+          <div
+            class="glass-panel p-4 rounded-2xl tilt-card"
+            data-interactive="true"
+          >
+            <div class="tilt-glare"></div>
+            <div
+              class="text-2xl sm:text-3xl font-extrabold text-pink-400 font-mono"
+              id="stat-3-val"
+            >
+              2,100+
+            </div>
+            <div class="text-xs text-zinc-400 mt-1" id="stat-3-lbl">
+              GitHub Commits
+            </div>
+          </div>
+          <div
+            class="glass-panel p-4 rounded-2xl tilt-card"
+            data-interactive="true"
+          >
+            <div class="tilt-glare"></div>
+            <div
+              class="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono"
+              id="stat-4-val"
+            >
+              99.8%
+            </div>
+            <div class="text-xs text-zinc-400 mt-1" id="stat-4-lbl">
+              Client Satisfaction
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT SECTION -->
+      <section id="about" class="space-y-10">
+        <div class="flex items-center gap-3">
+          <span
+            class="font-mono text-xs text-indigo-400 tracking-widest uppercase"
+            >// 01. Profil & Filosofi</span
+          >
+          <div class="h-px bg-white/10 flex-1"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div
+            class="lg:col-span-7 glass-panel p-8 sm:p-10 rounded-3xl relative overflow-hidden gradient-border tilt-card"
+            data-interactive="true"
+          >
+            <div class="tilt-glare"></div>
+            <div
+              class="absolute -right-10 -bottom-10 w-44 h-44 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"
+            ></div>
+
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6">
+              Menghubungkan Ide Abstrak Menjadi Realitas Digital yang
+              Menyenangkan.
+            </h2>
+
+            <div
+              class="space-y-4 text-zinc-300 leading-relaxed text-sm sm:text-base font-normal"
+            >
+              <p id="about-bio-1">
+                Bagi saya, rekayasa perangkat lunak adalah bentuk kerajinan
+                modern (<em>digital craftsmanship</em>). Tidak hanya sekadar
+                menyelesaikan kode agar bisa berjalan, tetapi menciptakan
+                pengalaman intuitif yang mempermudah kehidupan nyata pengguna.
+              </p>
+              <p id="about-bio-2">
+                Berbasis di Jawa Timur, Indonesia, saya berfokus mengembangkan
+                aplikasi web modern dengan tumpukan teknologi mutakhir seperti
+                Next.js, TypeScript, Tailwind, Three.js, serta ekosistem backend
+                tangguh menggunakan Node.js dan Golang.
+              </p>
+              <p
+                id="about-quote"
+                class="text-zinc-400 italic border-l-2 border-indigo-500 pl-4 py-1 text-sm font-mono"
+              >
+                "Desain yang baik membuat teknologi terasa alami tanpa kerumitan
+                yang membingungkan."
+              </p>
+            </div>
+
+            <div
+              class="mt-8 grid grid-cols-2 gap-3 text-xs font-mono text-zinc-300"
+            >
+              <div class="flex items-center gap-2">
+                <i
+                  data-lucide="check-circle-2"
+                  class="w-4 h-4 text-emerald-400"
+                ></i>
+                <span>Clean Architecture</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i
+                  data-lucide="check-circle-2"
+                  class="w-4 h-4 text-emerald-400"
+                ></i>
+                <span>Fluid Micro-Interactions</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i
+                  data-lucide="check-circle-2"
+                  class="w-4 h-4 text-emerald-400"
+                ></i>
+                <span>Lighthouse 95+ Scores</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i
+                  data-lucide="check-circle-2"
+                  class="w-4 h-4 text-emerald-400"
+                ></i>
+                <span>Responsive & Accessible</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 space-y-4">
+            <div
+              class="glass-panel p-6 rounded-3xl border border-white/10 space-y-4 tilt-card"
+              data-interactive="true"
+            >
+              <div class="tilt-glare"></div>
+              <h3
+                class="text-sm font-mono uppercase tracking-wider text-zinc-400 flex items-center justify-between"
+              >
+                <span>Status Terkini</span>
+                <span
+                  class="inline-block w-2 h-2 rounded-full bg-emerald-400"
+                ></span>
+              </h3>
+              <div class="space-y-3 text-xs">
+                <div class="flex justify-between py-2 border-b border-white/5">
+                  <span class="text-zinc-400">Lokasi</span>
+                  <span id="about-location-val" class="text-white font-medium"
+                    >Malang, Jawa Timur (WIB)</span
+                  >
+                </div>
+                <div class="flex justify-between py-2 border-b border-white/5">
+                  <span class="text-zinc-400">Spesialisasi</span>
+                  <span class="text-indigo-300 font-medium"
+                    >Full-Stack & Creative Interfaces</span
+                  >
+                </div>
+                <div class="flex justify-between py-2 border-b border-white/5">
+                  <span class="text-zinc-400">Eksplorasi Saat Ini</span>
+                  <span class="text-white font-medium"
+                    >Interactive Shaders & Audio Engineering</span
+                  >
+                </div>
+                <div class="flex justify-between py-2">
+                  <span class="text-zinc-400">Ketersediaan</span>
+                  <span
+                    id="about-status-val"
+                    class="text-emerald-400 font-medium"
+                    >Terbuka untuk Freelance</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="glass-panel p-6 rounded-3xl border border-white/10 flex items-center justify-between tilt-card"
+              data-interactive="true"
+            >
+              <div class="tilt-glare"></div>
+              <div>
+                <div class="font-bold text-white text-sm">Curriculum Vitae</div>
+                <div class="text-xs text-zinc-400">
+                  Versi Terbaru 2026 (PDF)
+                </div>
+              </div>
+              <a
+                id="download-cv-btn"
+                data-interactive="true"
+                href="#"
+                target="_blank"
+                class="tactile-btn px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-xs flex items-center gap-2 transition-all"
+              >
+                <i data-lucide="download" class="w-4 h-4"></i>
+                <span>Unduh CV</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS SECTION -->
+      <section id="skills" class="space-y-10">
+        <div
+          class="flex flex-col sm:flex-row sm:items-end justify-between gap-4"
+        >
+          <div>
+            <span
+              class="font-mono text-xs text-indigo-400 tracking-widest uppercase"
+              >// 02. Senjata & Kemampuan</span
+            >
+            <h2 class="text-3xl font-bold text-white mt-1">
+              Tech Stack & Ekosistem
+            </h2>
+          </div>
+          <div
+            class="flex flex-wrap gap-2 text-xs font-mono"
+            id="skill-filter-container"
+          >
+            <button
+              class="skill-filter-btn tactile-btn px-3 py-1.5 rounded-xl bg-indigo-600 text-white font-semibold transition-all"
+              data-category="all"
+              data-interactive="true"
+            >
+              Semua
+            </button>
+            <button
+              class="skill-filter-btn tactile-btn px-3 py-1.5 rounded-xl glass-panel text-zinc-300 hover:text-white transition-all"
+              data-category="frontend"
+              data-interactive="true"
+            >
+              Frontend & Creative
+            </button>
+            <button
+              class="skill-filter-btn tactile-btn px-3 py-1.5 rounded-xl glass-panel text-zinc-300 hover:text-white transition-all"
+              data-category="backend"
+              data-interactive="true"
+            >
+              Backend & Database
+            </button>
+            <button
+              class="skill-filter-btn tactile-btn px-3 py-1.5 rounded-xl glass-panel text-zinc-300 hover:text-white transition-all"
+              data-category="devops"
+              data-interactive="true"
+            >
+              DevOps & Tools
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
+          id="skills-grid"
+        ></div>
+      </section>
+
+      <!-- PROJECTS SECTION -->
+      <section id="projects" class="space-y-10">
+        <div
+          class="flex flex-col sm:flex-row sm:items-end justify-between gap-4"
+        >
+          <div>
+            <span
+              class="font-mono text-xs text-indigo-400 tracking-widest uppercase"
+              >// 03. Karya Terpilih</span
+            >
+            <h2 class="text-3xl font-bold text-white mt-1">
+              Karya & Eksperimen Digital
+            </h2>
+          </div>
+          <p class="text-xs text-zinc-400 max-w-sm">
+            Kombinasi aplikasi SaaS siap produksi, platform e-commerce, dan
+            laboratorium visual interaktif.
+          </p>
+        </div>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          id="projects-grid"
+        ></div>
+      </section>
+
+      <!-- EXPERIENCE SECTION -->
+      <section id="experience" class="space-y-10">
+        <div class="flex items-center gap-3">
+          <span
+            class="font-mono text-xs text-indigo-400 tracking-widest uppercase"
+            >// 04. Rekam Jejak</span
+          >
+          <div class="h-px bg-white/10 flex-1"></div>
+        </div>
+
+        <h2 class="text-3xl font-bold text-white">Evolusi & Pencapaian</h2>
+        <div
+          class="relative border-l border-white/10 ml-4 sm:ml-8 space-y-10 py-2"
+          id="experience-timeline"
+        ></div>
+      </section>
+
+      <!-- CONTACT SECTION -->
+      <section id="contact" class="space-y-10">
+        <div class="flex items-center gap-3">
+          <span
+            class="font-mono text-xs text-indigo-400 tracking-widest uppercase"
+            >// 05. Komunikasi & Diskusi</span
+          >
+          <div class="h-px bg-white/10 flex-1"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-5 space-y-6">
+            <h2
+              class="text-3xl sm:text-4xl font-extrabold text-white leading-tight"
+            >
+              Punya ide proyek menarik atau ingin berkolaborasi?
+            </h2>
+            <p class="text-sm text-zinc-300 leading-relaxed">
+              Pintu diskusi selalu terbuka untuk proyek baru, kerja sama
+              freelance, pengembangan platform, atau sekadar berbagi pandangan
+              seputar web technology.
+            </p>
+
+            <div class="space-y-3 pt-2">
+              <a
+                id="contact-email-link"
+                data-interactive="true"
+                href="mailto:rayhan.dev@domain.id"
+                class="tactile-btn flex items-center gap-3 p-3.5 rounded-2xl glass-panel hover:bg-white/10 transition-colors group"
+              >
+                <div
+                  class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform"
+                >
+                  <i data-lucide="mail" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <div class="text-[11px] font-mono text-zinc-400">
+                    Direct Email
+                  </div>
+                  <div
+                    id="contact-email-text"
+                    class="text-sm font-semibold text-white"
+                  >
+                    rayhan.dev@domain.id
+                  </div>
+                </div>
+              </a>
+
+              <a
+                id="contact-github-link"
+                data-interactive="true"
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="tactile-btn flex items-center gap-3 p-3.5 rounded-2xl glass-panel hover:bg-white/10 transition-colors group"
+              >
+                <div
+                  class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-zinc-300 group-hover:scale-110 transition-transform"
+                >
+                  <i data-lucide="github" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <div class="text-[11px] font-mono text-zinc-400">
+                    GitHub Repositories
+                  </div>
+                  <div
+                    id="contact-github-text"
+                    class="text-sm font-semibold text-white"
+                  >
+                    github.com/rayhan-craftsman
+                  </div>
+                </div>
+              </a>
+
+              <a
+                id="contact-linkedin-link"
+                data-interactive="true"
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="tactile-btn flex items-center gap-3 p-3.5 rounded-2xl glass-panel hover:bg-white/10 transition-colors group"
+              >
+                <div
+                  class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform"
+                >
+                  <i data-lucide="linkedin" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <div class="text-[11px] font-mono text-zinc-400">
+                    Professional Network
+                  </div>
+                  <div
+                    id="contact-linkedin-text"
+                    class="text-sm font-semibold text-white"
+                  >
+                    linkedin.com/in/rayhan-maulana
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div
+            class="lg:col-span-7 glass-panel p-8 sm:p-10 rounded-3xl border border-white/10 relative tilt-card"
+            data-interactive="true"
+          >
+            <div class="tilt-glare"></div>
+            <form id="contact-form" class="space-y-5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-mono text-zinc-300 mb-2"
+                    >NAMA LENGKAP *</label
+                  >
+                  <input
+                    type="text"
+                    id="form-name"
+                    required
+                    placeholder="Alexander Siregar"
+                    class="w-full text-sm px-4 py-3 rounded-xl bg-black/40 border border-white/10 text-white placeholder-zinc-500 focus:outline-none focus:border-indigo-500 transition-colors"
+                  />
+                </div>
+                <div>
+                  <label class="block text-xs font-mono text-zinc-300 mb-2"
+                    >EMAIL ANDA *</label
+                  >
+                  <input
+                    type="email"
+                    id="form-email"
+                    required
+                    placeholder="alex@company.com"
+                    class="w-full text-sm px-4 py-3 rounded-xl bg-black/40 border border-white/10 text-white placeholder-zinc-500 focus:outline-none focus:border-indigo-500 transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-mono text-zinc-300 mb-2"
+                  >JENIS KEBUTUHAN</label
+                >
+                <select
+                  id="form-subject"
+                  class="w-full text-sm px-4 py-3 rounded-xl bg-zinc-900 border border-white/10 text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                >
+                  <option value="Project Baru / Development">
+                    Pengembangan Website & Web App Modern
+                  </option>
+                  <option value="Creative Visual / 3D">
+                    UI/UX & Creative Interactive Engineering
+                  </option>
+                  <option value="Konsultasi Teknis">
+                    Audit Performa & Konsultasi Sistem
+                  </option>
+                  <option value="Lainnya">
+                    Diskusi Kasual / Peluang Kerja
+                  </option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-mono text-zinc-300 mb-2"
+                  >PESAN ANDA *</label
+                >
+                <textarea
+                  id="form-message"
+                  rows="4"
+                  required
+                  placeholder="Ceritakan gambaran ide, estimasi timeline, atau lingkup proyek Anda..."
+                  class="w-full text-sm px-4 py-3 rounded-xl bg-black/40 border border-white/10 text-white placeholder-zinc-500 focus:outline-none focus:border-indigo-500 transition-colors"
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                id="submit-btn"
+                data-interactive="true"
+                class="tactile-btn w-full py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-bold text-sm tracking-wide shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-2 transition-all"
+              >
+                <span>Kirim Pesan Sekarang</span>
+                <i data-lucide="send" class="w-4 h-4"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- PROJECT MODAL DETAIL -->
+    <div
+      id="project-modal"
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300"
+    >
+      <div
+        class="glass-panel border border-white/20 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300"
+        id="project-modal-content"
+      >
+        <button
+          id="close-project-modal"
+          data-interactive="true"
+          class="tactile-btn absolute top-5 right-5 p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors"
+        >
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+        <div id="modal-body"></div>
+      </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION COMPONENT -->
+    <div
+      id="toast"
+      class="fixed bottom-6 right-6 z-50 px-5 py-3.5 rounded-2xl glass-panel border border-white/20 shadow-2xl flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none"
+    >
+      <div
+        id="toast-icon-box"
+        class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-base"
+      >
+        <i data-lucide="check" class="w-4 h-4"></i>
+      </div>
+      <div>
+        <div id="toast-title" class="text-xs font-bold text-white">
+          Berhasil
+        </div>
+        <div id="toast-desc" class="text-[11px] text-zinc-300">
+          Aksi berhasil diproses.
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer
+      class="border-t border-white/10 py-10 px-4 sm:px-8 text-center text-xs text-zinc-500 font-mono"
+    >
+      <div
+        class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4"
+      >
+        <div
+          id="secret-footer-trigger"
+          data-interactive="true"
+          class="cursor-pointer select-none hover:text-zinc-400 transition-colors"
+          title="Signature (3x klik rahasia)"
+        >
+          © <span id="footer-year">2026</span>
+          <span id="footer-author-name">Rayhan Maulana</span>. Didesain dengan
+          presisi & performa web modern.
+        </div>
+        <div class="flex items-center gap-5">
+          <a
+            href="#hero"
+            data-interactive="true"
+            class="tactile-btn hover:text-zinc-300 transition-colors"
+            >Kembali ke Atas ↑</a
+          >
+          <span>•</span>
+          <span class="text-zinc-600">v4.5 Sound & Visual Edition</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      /* ========================================================
+           1. DEFAULT CONFIGURATION STATE & PERSISTENCE
+           ======================================================== */
+      const DEFAULT_CONFIG = {
+        profile: {
+          name: "Rayhan Maulana",
+          initials: "RM",
+          heroTitle:
+            "Membangun ekosistem web yang berjiwa estetis dan berperforma tinggi.",
+          roles: [
+            "Full-Stack Engineer",
+            "Creative Developer",
+            "UI/UX Craftsman",
+            "System Architect",
+          ],
+          heroPill:
+            "Crafting Scalable Web Architecture & Fluid Creative Interfaces",
+          statusBadge: "Open for Collaborations",
+          location: "Malang, Jawa Timur (WIB)",
+          bio1: "Bagi saya, rekayasa perangkat lunak adalah bentuk kerajinan modern (digital craftsmanship). Tidak hanya sekadar menyelesaikan kode agar bisa berjalan, tetapi menciptakan pengalaman intuitif yang mempermudah kehidupan nyata pengguna.",
+          bio2: "Berbasis di Jawa Timur, Indonesia, saya berfokus mengembangkan aplikasi web modern dengan tumpukan teknologi mutakhir seperti Next.js, TypeScript, Tailwind, Three.js, serta ekosistem backend tangguh menggunakan Node.js dan Golang.",
+          quote:
+            '"Desain yang baik membuat teknologi terasa alami tanpa kerumitan yang membingungkan."',
+          email: "rayhan.dev@domain.id",
+          github: "https://github.com/rayhan-craftsman",
+          linkedin: "https://linkedin.com/in/rayhan-maulana",
+          cvUrl: "#",
+        },
+        stats: {
+          stat1Val: "28+",
+          stat1Lbl: "Proyek Selesai & Rilis",
+          stat2Val: "4+",
+          stat2Lbl: "Tahun Pengalaman Coding",
+          stat3Val: "2,100+",
+          stat3Lbl: "GitHub Commits",
+          stat4Val: "99.8%",
+          stat4Lbl: "Client Satisfaction",
+        },
+        musicSettings: {
+          currentTrackIndex: 0,
+          volume: 70,
+          isLooping: true,
+          showFloatingWidget: true,
+          autoPlayOnInteraction: true,
+        },
+        playlist: [
+          {
+            id: "track-1",
+            title: "Lofi Cyber Chill",
+            artist: "Freesound Creative Studio",
+            url: "https://cdn.freesound.org/previews/568/568855_11861866-lq.mp3",
+            isCustom: false,
+          },
+          {
+            id: "track-2",
+            title: "Deep Space Drift",
+            artist: "Cosmic Ambient Soundscapes",
+            url: "https://cdn.freesound.org/previews/612/612089_11861866-lq.mp3",
+            isCustom: false,
+          },
+          {
+            id: "track-3",
+            title: "Retro Neon Synthwave",
+            artist: "Aetheria Sound Labs",
+            url: "https://cdn.freesound.org/previews/522/522254_2394245-lq.mp3",
+            isCustom: false,
+          },
+          {
+            id: "track-4",
+            title: "Gentle Horizon Beats",
+            artist: "Chillout Coding Session",
+            url: "https://cdn.freesound.org/previews/530/530415_11861866-lq.mp3",
+            isCustom: false,
+          },
+        ],
+        videos: [
+          {
+            id: "space-nebula",
+            name: "Cosmic Nebula",
+            desc: "Bintang & nebula kosmik yang berputar pelan",
+            url: "https://assets.mixkit.co/videos/preview/mixkit-nebula-in-deep-space-with-stars-31608-large.mp4",
+            isCustom: false,
+          },
+          {
+            id: "cyber-circuits",
+            name: "Cyber Grid Flux",
+            desc: "Aliran partikel digital dan sirkuit neon",
+            url: "https://assets.mixkit.co/videos/preview/mixkit-animation-of-futuristic-circuits-and-grids-99764-large.mp4",
+            isCustom: false,
+          },
+          {
+            id: "fluid-smoke",
+            name: "Liquid Aurora",
+            desc: "Gradasi abstrak halus dan menenangkan",
+            url: "https://assets.mixkit.co/videos/preview/mixkit-abstract-flowing-colorful-smoke-40173-large.mp4",
+            isCustom: false,
+          },
+          {
+            id: "city-bokeh",
+            name: "Synthwave Night",
+            desc: "Lampu kota bokeh neon futuristik",
+            url: "https://assets.mixkit.co/videos/preview/mixkit-blurred-city-lights-at-night-42866-large.mp4",
+            isCustom: false,
+          },
+        ],
+        videoSettings: {
+          activeUrl:
+            "https://assets.mixkit.co/videos/preview/mixkit-nebula-in-deep-space-with-stars-31608-large.mp4",
+          opacity: 60,
+          blur: 3,
+          speed: 1.0,
+          muted: true,
+        },
+        skills: [
+          {
+            id: "s1",
+            name: "TypeScript & JavaScript",
+            category: "frontend",
+            level: "Mastery",
+            rating: "96",
+          },
+          {
+            id: "s2",
+            name: "React.js & Next.js 15",
+            category: "frontend",
+            level: "Advanced",
+            rating: "95",
+          },
+          {
+            id: "s3",
+            name: "Tailwind CSS & Modern Motion",
+            category: "frontend",
+            level: "Mastery",
+            rating: "98",
+          },
+          {
+            id: "s4",
+            name: "Three.js & WebGL Shaders",
+            category: "frontend",
+            level: "Intermediate",
+            rating: "84",
+          },
+          {
+            id: "s5",
+            name: "Node.js & Express / NestJS",
+            category: "backend",
+            level: "Advanced",
+            rating: "91",
+          },
+          {
+            id: "s6",
+            name: "Golang (Concurrency & REST)",
+            category: "backend",
+            level: "Proficient",
+            rating: "82",
+          },
+          {
+            id: "s7",
+            name: "PostgreSQL & Supabase / Prisma",
+            category: "backend",
+            level: "Advanced",
+            rating: "89",
+          },
+          {
+            id: "s8",
+            name: "Redis Cache & Event Streams",
+            category: "backend",
+            level: "Proficient",
+            rating: "86",
+          },
+          {
+            id: "s9",
+            name: "Docker & Containerization",
+            category: "devops",
+            level: "Advanced",
+            rating: "87",
+          },
+          {
+            id: "s10",
+            name: "Git & GitHub Actions CI/CD",
+            category: "devops",
+            level: "Mastery",
+            rating: "94",
+          },
+          {
+            id: "s11",
+            name: "Linux Server & Nginx Proxy",
+            category: "devops",
+            level: "Proficient",
+            rating: "85",
+          },
+          {
+            id: "s12",
+            name: "REST & GraphQL Architecture",
+            category: "backend",
+            level: "Advanced",
+            rating: "92",
+          },
+        ],
+        projects: [
+          {
+            id: "lumina-saas",
+            title: "Lumina Cloud Analytics",
+            tagline: "Real-time telemetry & API metrics dashboard",
+            description:
+              "Platform visualisasi performa server real-time dengan streaming websocket berkecepatan tinggi, integrasi alerting Telegram, dan grafik interaktif responsif.",
+            tags: ["Next.js", "Tailwind", "Go", "TimescaleDB", "Docker"],
+            badge: "Production App",
+            github: "https://github.com",
+            demo: "https://lumina-demo.example.com",
+            gradient: "from-blue-600/40 via-indigo-600/20 to-purple-800/10",
+          },
+          {
+            id: "synth-canvas",
+            title: "Aetheria WebGL Audio Synthesizer",
+            tagline: "Audio visualizer & generative procedural canvas",
+            description:
+              "Eksperimen sintesis audio peramban berbasis Web Audio API dan Three.js. Pengguna dapat merangkai modul gelombang suara sambil melihat respon partikel 3D secara dinamis.",
+            tags: ["Three.js", "Web Audio API", "TypeScript", "GLSL Shaders"],
+            badge: "Creative Lab",
+            github: "https://github.com",
+            demo: "https://aetheria-audio.example.com",
+            gradient: "from-pink-600/40 via-purple-600/20 to-indigo-800/10",
+          },
+          {
+            id: "karya-commerce",
+            title: "Nusantara Artisan Marketplace",
+            tagline: "E-commerce platform untuk produk kerajinan Nusantara",
+            description:
+              "Aplikasi belanja online dengan checkout multi-vendor, integrasi payment gateway Midtrans otomatis, invoice PDF generator, dan panel dashboard analitik penjual.",
+            tags: ["React", "Node.js", "PostgreSQL", "Midtrans API", "Prisma"],
+            badge: "Commercial Client",
+            github: "https://github.com",
+            demo: "https://artisan-demo.example.com",
+            gradient: "from-emerald-600/40 via-teal-600/20 to-cyan-800/10",
+          },
+        ],
+        experience: [
+          {
+            id: "exp-1",
+            role: "Lead Frontend & Creative Engineer",
+            company: "Studio Visi Nusantara — Remote / Contract",
+            period: "2024 — Sekarang",
+            desc: "Mengorkestrasi desain arsitektur antarmuka aplikasi klien global, memimpin integrasi visual 3D Three.js dashboard analitik, dan mengoptimalkan performa Core Web Vitals.",
+          },
+          {
+            id: "exp-2",
+            role: "Full-Stack Engineer",
+            company: "Nexus Digital Lab",
+            period: "2023 — 2024",
+            desc: "Membangun sistem microservices berbasis Node.js dan Golang untuk platform SaaS supply chain. Mempercepat latency response API hingga 42% melalui caching layer Redis.",
+          },
+          {
+            id: "exp-3",
+            role: "Juara 1 Nasional Hackathon Inovasi Maritim",
+            company: "Kementerian Riset & Komunikasi Digital",
+            period: "2023",
+            desc: "Membuat prototipe aplikasi offline-first navigasi nelayan pesisir terintegrasi visual data sensor cuaca dan arus laut.",
+          },
+        ],
+      };
+
+      let appState = {};
+      const DEFAULT_PIN = "2026";
+      let currentPin =
+        localStorage.getItem("portfolio_secret_pin") || DEFAULT_PIN;
+      let isAuthenticatedAdmin = false;
+
+      function loadState() {
+        const saved = localStorage.getItem("portfolio_master_config_v45");
+        if (saved) {
+          try {
+            appState = JSON.parse(saved);
+            if (!appState.playlist || appState.playlist.length === 0) {
+              appState.playlist = DEFAULT_CONFIG.playlist;
+            }
+            if (!appState.musicSettings) {
+              appState.musicSettings = DEFAULT_CONFIG.musicSettings;
+            }
+          } catch (e) {
+            appState = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+          }
+        } else {
+          appState = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+        }
+      }
+
+      function saveState() {
+        localStorage.setItem(
+          "portfolio_master_config_v45",
+          JSON.stringify(appState),
+        );
+      }
+
+      /* ========================================================
+           2. SOUNDTRACK & AUDIO ENGINE (SECRET MODE AUDIO PLAYER)
+           ======================================================== */
+      const bgAudio = document.getElementById("bg-audio-engine");
+      let isMusicPlaying = false;
+      let hasUserInteracted = false;
+
+      const floatingWidget = document.getElementById("floating-music-widget");
+      const floatTrackTitle = document.getElementById("float-track-title");
+      const floatTrackArtist = document.getElementById("float-track-artist");
+      const floatPlayBtn = document.getElementById("float-play-btn");
+      const floatPlayIcon = document.getElementById("float-play-icon");
+      const floatPrevBtn = document.getElementById("float-prev-btn");
+      const floatNextBtn = document.getElementById("float-next-btn");
+
+      const navMusicQuickBtn = document.getElementById("nav-music-quick-btn");
+      const navMusicIcon = document.getElementById("nav-music-icon");
+      const navMiniEq = document.getElementById("nav-mini-eq");
+
+      const cmsMusicPlay = document.getElementById("cms-music-play");
+      const cmsPlayIcon = document.getElementById("cms-play-icon");
+      const cmsMusicPrev = document.getElementById("cms-music-prev");
+      const cmsMusicNext = document.getElementById("cms-music-next");
+      const cmsMusicLoop = document.getElementById("cms-music-loop");
+      const cmsLoopIcon = document.getElementById("cms-loop-icon");
+      const cmsMusicVolume = document.getElementById("cms-music-volume");
+      const cmsTrackProgress = document.getElementById("cms-track-progress");
+      const cmsTrackCurrTime = document.getElementById("cms-track-curr-time");
+      const cmsTrackDuration = document.getElementById("cms-track-duration");
+      const cmsCurrentTrackTitle = document.getElementById(
+        "cms-current-track-title",
+      );
+      const cmsCurrentTrackArtist = document.getElementById(
+        "cms-current-track-artist",
+      );
+      const cmsToggleFloatingWidget = document.getElementById(
+        "cms-toggle-floating-widget",
+      );
+      const cmsPlaylistContainer = document.getElementById(
+        "cms-playlist-container",
+      );
+      const cmsTrackCount = document.getElementById("cms-track-count");
+
+      function formatTime(seconds) {
+        if (isNaN(seconds)) return "0:00";
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+      }
+
+      function loadTrack(index, autoPlay = false) {
+        if (!appState.playlist || appState.playlist.length === 0) return;
+        if (index < 0) index = appState.playlist.length - 1;
+        if (index >= appState.playlist.length) index = 0;
+
+        appState.musicSettings.currentTrackIndex = index;
+        const track = appState.playlist[index];
+        bgAudio.src = track.url;
+        bgAudio.volume = (appState.musicSettings.volume || 70) / 100;
+        bgAudio.loop = !!appState.musicSettings.isLooping;
+
+        floatTrackTitle.textContent = track.title;
+        floatTrackArtist.textContent = track.artist;
+        cmsCurrentTrackTitle.textContent = track.title;
+        cmsCurrentTrackArtist.textContent = track.artist;
+
+        renderPlaylistItems();
+        saveState();
+
+        if (autoPlay) {
+          playAudio();
+        }
+      }
+
+      function playAudio() {
+        bgAudio
+          .play()
+          .then(() => {
+            isMusicPlaying = true;
+            updateAudioUI(true);
+          })
+          .catch((e) => {
+            isMusicPlaying = false;
+            updateAudioUI(false);
+          });
+      }
+
+      function pauseAudio() {
+        bgAudio.pause();
+        isMusicPlaying = false;
+        updateAudioUI(false);
+      }
+
+      function toggleAudioPlayback() {
+        if (isMusicPlaying) {
+          pauseAudio();
+        } else {
+          playAudio();
+        }
+      }
+
+      function updateAudioUI(playing) {
+        if (playing) {
+          floatPlayIcon.setAttribute("data-lucide", "pause");
+          cmsPlayIcon.setAttribute("data-lucide", "pause");
+          navMiniEq.classList.remove("hidden");
+          navMusicIcon.classList.add("text-indigo-400");
+        } else {
+          floatPlayIcon.setAttribute("data-lucide", "play");
+          cmsPlayIcon.setAttribute("data-lucide", "play");
+          navMiniEq.classList.add("hidden");
+          navMusicIcon.classList.remove("text-indigo-400");
+        }
+        if (window.lucide) lucide.createIcons();
+      }
+
+      function renderPlaylistItems() {
+        cmsPlaylistContainer.innerHTML = "";
+        cmsTrackCount.textContent = `${appState.playlist.length} Lagu`;
+
+        appState.playlist.forEach((track, idx) => {
+          const isActive = idx === appState.musicSettings.currentTrackIndex;
+          const item = document.createElement("div");
+          item.className = `p-2.5 rounded-xl border transition-all text-xs flex items-center justify-between gap-2 group ${
+            isActive
+              ? "border-indigo-400 bg-indigo-500/20 text-white"
+              : "border-white/10 glass-panel-subtle hover:bg-white/10 text-zinc-300"
+          }`;
+
+          item.innerHTML = `
+                    <div class="flex-1 cursor-pointer min-w-0 flex items-center gap-2" data-idx="${idx}" data-interactive="true">
+                        <i data-lucide="${isActive && isMusicPlaying ? "disc-3" : "music"}" class="w-3.5 h-3.5 flex-shrink-0 ${isActive ? "text-indigo-400 animate-spin" : "text-zinc-400"}"></i>
+                        <div class="truncate">
+                            <div class="font-bold truncate">${track.title}</div>
+                            <div class="text-[10px] text-zinc-400 truncate">${track.artist}</div>
+                        </div>
+                    </div>
+                    ${
+                      track.isCustom
+                        ? `
+                        <button class="del-track-btn p-1.5 rounded-lg text-zinc-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors" data-idx="${idx}" data-interactive="true" title="Hapus Lagu">
+                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                        </button>
+                    `
+                        : ""
+                    }
+                `;
+
+          item.querySelector("[data-idx]").addEventListener("click", () => {
+            loadTrack(idx, true);
+          });
+
+          if (track.isCustom) {
+            item
+              .querySelector(".del-track-btn")
+              .addEventListener("click", (e) => {
+                e.stopPropagation();
+                appState.playlist.splice(idx, 1);
+                if (
+                  appState.musicSettings.currentTrackIndex >=
+                  appState.playlist.length
+                ) {
+                  appState.musicSettings.currentTrackIndex = 0;
+                }
+                saveState();
+                loadTrack(
+                  appState.musicSettings.currentTrackIndex,
+                  isMusicPlaying,
+                );
+                showToast(
+                  "Lagu Dihapus",
+                  "Soundtrack berhasil dihapus dari playlist",
+                );
+              });
+          }
+
+          cmsPlaylistContainer.appendChild(item);
+        });
+        if (window.lucide) lucide.createIcons();
+        attachCursorHoverEffects();
+      }
+
+      // Audio Engine Event Listeners
+      bgAudio.addEventListener("timeupdate", () => {
+        if (!isNaN(bgAudio.duration)) {
+          const percent = (bgAudio.currentTime / bgAudio.duration) * 100;
+          cmsTrackProgress.value = percent;
+          cmsTrackCurrTime.textContent = formatTime(bgAudio.currentTime);
+          cmsTrackDuration.textContent = formatTime(bgAudio.duration);
+        }
+      });
+
+      bgAudio.addEventListener("ended", () => {
+        if (!appState.musicSettings.isLooping) {
+          loadTrack(appState.musicSettings.currentTrackIndex + 1, true);
+        }
+      });
+
+      cmsTrackProgress.addEventListener("input", (e) => {
+        if (!isNaN(bgAudio.duration)) {
+          bgAudio.currentTime = (e.target.value / 100) * bgAudio.duration;
+        }
+      });
+
+      cmsMusicVolume.addEventListener("input", (e) => {
+        const val = e.target.value;
+        bgAudio.volume = val / 100;
+        appState.musicSettings.volume = parseInt(val);
+        saveState();
+      });
+
+      cmsMusicLoop.addEventListener("click", () => {
+        appState.musicSettings.isLooping = !appState.musicSettings.isLooping;
+        bgAudio.loop = appState.musicSettings.isLooping;
+        cmsLoopIcon.classList.toggle(
+          "text-indigo-400",
+          appState.musicSettings.isLooping,
+        );
+        saveState();
+        showToast(
+          "Loop Lagu",
+          appState.musicSettings.isLooping
+            ? "Mengulang lagu yang sama aktif"
+            : "Putar berurutan aktif",
+        );
+      });
+
+      cmsToggleFloatingWidget.addEventListener("change", (e) => {
+        appState.musicSettings.showFloatingWidget = e.target.checked;
+        floatingWidget.style.display = e.target.checked ? "flex" : "none";
+        saveState();
+      });
+
+      floatPlayBtn.addEventListener("click", toggleAudioPlayback);
+      cmsMusicPlay.addEventListener("click", toggleAudioPlayback);
+      navMusicQuickBtn.addEventListener("click", toggleAudioPlayback);
+
+      floatNextBtn.addEventListener("click", () =>
+        loadTrack(appState.musicSettings.currentTrackIndex + 1, isMusicPlaying),
+      );
+      cmsMusicNext.addEventListener("click", () =>
+        loadTrack(appState.musicSettings.currentTrackIndex + 1, isMusicPlaying),
+      );
+      floatPrevBtn.addEventListener("click", () =>
+        loadTrack(appState.musicSettings.currentTrackIndex - 1, isMusicPlaying),
+      );
+      cmsMusicPrev.addEventListener("click", () =>
+        loadTrack(appState.musicSettings.currentTrackIndex - 1, isMusicPlaying),
+      );
+
+      // Add Song via URL
+      document
+        .getElementById("btn-add-song-url")
+        .addEventListener("click", () => {
+          const titleInput = document.getElementById("new-song-title");
+          const artistInput = document.getElementById("new-song-artist");
+          const urlInput = document.getElementById("new-song-url");
+
+          const title = titleInput.value.trim() || "Custom Soundtrack";
+          const artist = artistInput.value.trim() || "Custom Artist";
+          const url = urlInput.value.trim();
+
+          if (url) {
+            const newTrack = {
+              id: "custom-song-" + Date.now(),
+              title,
+              artist,
+              url,
+              isCustom: true,
+            };
+            appState.playlist.push(newTrack);
+            saveState();
+            loadTrack(appState.playlist.length - 1, true);
+            titleInput.value = "";
+            artistInput.value = "";
+            urlInput.value = "";
+            showToast("Lagu Ditambahkan", `${title} siap diputar`);
+          } else {
+            showToast("Gagal", "Masukkan link URL MP3/audio yang valid.");
+          }
+        });
+
+      // Add Song via Local File Upload
+      document
+        .getElementById("local-audio-input")
+        .addEventListener("change", (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const objectUrl = URL.createObjectURL(file);
+            const fileName = file.name.replace(/\.[^/.]+$/, "");
+            const newTrack = {
+              id: "local-song-" + Date.now(),
+              title: fileName,
+              artist: "File Audio Lokal",
+              url: objectUrl,
+              isCustom: true,
+            };
+            appState.playlist.push(newTrack);
+            saveState();
+            loadTrack(appState.playlist.length - 1, true);
+            showToast("Audio Lokal Dimuat", fileName);
+          }
+        });
+
+      // Toggle Audio Source Tabs
+      const songTabBtnUrl = document.getElementById("song-tab-btn-url");
+      const songTabBtnFile = document.getElementById("song-tab-btn-file");
+      const addSongUrlBox = document.getElementById("add-song-url-box");
+      const addSongFileBox = document.getElementById("add-song-file-box");
+
+      songTabBtnUrl.addEventListener("click", () => {
+        songTabBtnUrl.classList.add(
+          "bg-indigo-600",
+          "text-white",
+          "font-semibold",
+        );
+        songTabBtnUrl.classList.remove("text-zinc-400");
+        songTabBtnFile.classList.remove(
+          "bg-indigo-600",
+          "text-white",
+          "font-semibold",
+        );
+        songTabBtnFile.classList.add("text-zinc-400");
+        addSongUrlBox.classList.remove("hidden");
+        addSongFileBox.classList.add("hidden");
+      });
+
+      songTabBtnFile.addEventListener("click", () => {
+        songTabBtnFile.classList.add(
+          "bg-indigo-600",
+          "text-white",
+          "font-semibold",
+        );
+        songTabBtnFile.classList.remove("text-zinc-400");
+        songTabBtnUrl.classList.remove(
+          "bg-indigo-600",
+          "text-white",
+          "font-semibold",
+        );
+        songTabBtnUrl.classList.add("text-zinc-400");
+        addSongFileBox.classList.remove("hidden");
+        addSongUrlBox.classList.add("hidden");
+      });
+
+      document
+        .getElementById("btn-reset-playlist")
+        .addEventListener("click", () => {
+          appState.playlist = JSON.parse(
+            JSON.stringify(DEFAULT_CONFIG.playlist),
+          );
+          appState.musicSettings = JSON.parse(
+            JSON.stringify(DEFAULT_CONFIG.musicSettings),
+          );
+          saveState();
+          loadTrack(0, isMusicPlaying);
+          showToast("Playlist Dipulihkan", "Playlist bawaan berhasil dimuat.");
+        });
+
+      // Autoplay on first visitor interaction if enabled
+      window.addEventListener(
+        "click",
+        () => {
+          if (
+            !hasUserInteracted &&
+            appState.musicSettings.autoPlayOnInteraction &&
+            !isMusicPlaying
+          ) {
+            hasUserInteracted = true;
+            playAudio();
+          }
+        },
+        { once: true },
+      );
+
+      /* ========================================================
+           3. CANVAS PARTICLE FX ENGINE & TACTILE AUDIO
+           ======================================================== */
+      const canvas = document.getElementById("fx-canvas");
+      const ctx = canvas.getContext("2d");
+      let particles = [];
+      let ripples = [];
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+
+      class Particle {
+        constructor(x, y, color, type = "spark") {
+          this.x = x;
+          this.y = y;
+          this.type = type;
+          const angle = Math.random() * Math.PI * 2;
+          const speed =
+            type === "ring" ? Math.random() * 2 + 1 : Math.random() * 7 + 2;
+          this.vx = Math.cos(angle) * speed;
+          this.vy = Math.sin(angle) * speed;
+          this.friction = 0.94;
+          this.gravity = 0.15;
+          this.life = 1;
+          this.decay = Math.random() * 0.025 + 0.02;
+          this.color = color;
+          this.radius =
+            type === "star" ? Math.random() * 4 + 2 : Math.random() * 3.5 + 1.5;
+          this.rotation = Math.random() * Math.PI;
+          this.rotationSpeed = (Math.random() - 0.5) * 0.2;
+        }
+
+        update() {
+          this.vx *= this.friction;
+          this.vy *= this.friction;
+          this.vy += this.gravity;
+          this.x += this.vx;
+          this.y += this.vy;
+          this.life -= this.decay;
+          this.rotation += this.rotationSpeed;
+        }
+
+        draw(ctx) {
+          if (this.life <= 0) return;
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, this.life);
+          ctx.translate(this.x, this.y);
+          ctx.rotate(this.rotation);
+
+          if (this.type === "star") {
+            ctx.fillStyle = this.color;
+            ctx.shadowColor = this.color;
+            ctx.shadowBlur = 10;
+            ctx.beginPath();
+            for (let i = 0; i < 4; i++) {
+              ctx.lineTo(
+                Math.cos((i * Math.PI) / 2) * this.radius,
+                Math.sin((i * Math.PI) / 2) * this.radius,
+              );
+              ctx.lineTo(
+                Math.cos(((i + 0.5) * Math.PI) / 2) * (this.radius / 2.5),
+                Math.sin(((i + 0.5) * Math.PI) / 2) * (this.radius / 2.5),
+              );
+            }
+            ctx.closePath();
+            ctx.fill();
+          } else {
+            ctx.beginPath();
+            ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.shadowColor = this.color;
+            ctx.shadowBlur = 8;
+            ctx.fill();
+          }
+          ctx.restore();
+        }
+      }
+
+      class LiquidRipple {
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+          this.radius = 0;
+          this.maxRadius = Math.random() * 35 + 45;
+          this.life = 1;
+          this.decay = 0.035;
+          this.lineWidth = 2.2;
+        }
+
+        update() {
+          this.radius += (this.maxRadius - this.radius) * 0.16 + 1.2;
+          this.life -= this.decay;
+          this.lineWidth = Math.max(0.5, this.lineWidth * 0.96);
+        }
+
+        draw(ctx) {
+          if (this.life <= 0) return;
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(165, 180, 252, ${this.life * 0.7})`;
+          ctx.lineWidth = this.lineWidth;
+          ctx.shadowColor = "rgba(99, 102, 241, 0.8)";
+          ctx.shadowBlur = 12;
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
+
+      function triggerClickBurst(x, y) {
+        const palette = ["#6366f1", "#a855f7", "#ec4899", "#38bdf8", "#ffffff"];
+        const count = 22;
+        for (let i = 0; i < count; i++) {
+          const color = palette[Math.floor(Math.random() * palette.length)];
+          const type = Math.random() > 0.6 ? "star" : "spark";
+          particles.push(new Particle(x, y, color, type));
+        }
+        ripples.push(new LiquidRipple(x, y));
+      }
+
+      function renderFxLoop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = ripples.length - 1; i >= 0; i--) {
+          ripples[i].update();
+          ripples[i].draw(ctx);
+          if (ripples[i].life <= 0) ripples.splice(i, 1);
+        }
+
+        for (let i = particles.length - 1; i >= 0; i--) {
+          particles[i].update();
+          particles[i].draw(ctx);
+          if (particles[i].life <= 0) particles.splice(i, 1);
+        }
+
+        requestAnimationFrame(renderFxLoop);
+      }
+      renderFxLoop();
+
+      // Procedural Click Sound via Web Audio API
+      let fxAudioCtx = null;
+      let isClickSoundEnabled = true;
+
+      function playTactileClickSound() {
+        if (!isClickSoundEnabled) return;
+        try {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (!fxAudioCtx) fxAudioCtx = new AudioContext();
+          if (fxAudioCtx.state === "suspended") fxAudioCtx.resume();
+
+          const now = fxAudioCtx.currentTime;
+          const osc = fxAudioCtx.createOscillator();
+          const gain = fxAudioCtx.createGain();
+
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.exponentialRampToValueAtTime(80, now + 0.06);
+
+          gain.gain.setValueAtTime(0.09, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+
+          osc.connect(gain);
+          gain.connect(fxAudioCtx.destination);
+
+          osc.start(now);
+          osc.stop(now + 0.06);
+        } catch (e) {}
+      }
+
+      const toggleClickSoundBtn = document.getElementById("toggle-click-sound");
+      const clickSoundStatus = document.getElementById("click-sound-status");
+      toggleClickSoundBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        isClickSoundEnabled = !isClickSoundEnabled;
+        clickSoundStatus.textContent = isClickSoundEnabled ? "FX ON" : "FX OFF";
+        showToast(
+          "Haptic Sound FX",
+          isClickSoundEnabled
+            ? "Suara klik taktil diaktifkan"
+            : "Suara klik dimatikan",
+        );
+      });
+
+      /* ========================================================
+           4. DUAL-RING DYNAMIC MAGNETIC CURSOR
+           ======================================================== */
+      const cursorDot = document.getElementById("custom-cursor-dot");
+      const cursorRing = document.getElementById("custom-cursor-ring");
+      const cursorGlow = document.getElementById("cursor-glow");
+
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let ringX = mouseX;
+      let ringY = mouseY;
+
+      window.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursorDot.style.left = `${mouseX}px`;
+        cursorDot.style.top = `${mouseY}px`;
+        cursorGlow.style.left = `${mouseX}px`;
+        cursorGlow.style.top = `${mouseY}px`;
+      });
+
+      function animateCursorRing() {
+        ringX += (mouseX - ringX) * 0.18;
+        ringY += (mouseY - ringY) * 0.18;
+        cursorRing.style.left = `${ringX}px`;
+        cursorRing.style.top = `${ringY}px`;
+        requestAnimationFrame(animateCursorRing);
+      }
+      animateCursorRing();
+
+      window.addEventListener("mousedown", (e) => {
+        cursorRing.classList.add("cursor-down");
+        triggerClickBurst(e.clientX, e.clientY);
+        playTactileClickSound();
+      });
+
+      window.addEventListener("mouseup", () => {
+        cursorRing.classList.remove("cursor-down");
+      });
+
+      function attachCursorHoverEffects() {
+        const targets = document.querySelectorAll(
+          'a, button, input, select, textarea, .tilt-card, [data-interactive="true"]',
+        );
+        targets.forEach((el) => {
+          el.addEventListener("mouseenter", () =>
+            cursorRing.classList.add("cursor-hover"),
+          );
+          el.addEventListener("mouseleave", () =>
+            cursorRing.classList.remove("cursor-hover"),
+          );
+        });
+      }
+
+      /* ========================================================
+           5. 3D CARD TILT & HOLOGRAPHIC GLARE ENGINE
+           ======================================================== */
+      function initCardTilt() {
+        const cards = document.querySelectorAll(".tilt-card");
+        cards.forEach((card) => {
+          const glare = card.querySelector(".tilt-glare");
+
+          card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -9;
+            const rotateY = ((x - centerX) / centerX) * 9;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+
+            if (glare) {
+              glare.style.opacity = "1";
+              glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.16) 0%, transparent 65%)`;
+            }
+          });
+
+          card.addEventListener("mouseleave", () => {
+            card.style.transform =
+              "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)";
+            if (glare) glare.style.opacity = "0";
+          });
+        });
+      }
+
+      /* ========================================================
+           6. CONTENT RENDERERS & DATA BINDINGS
+           ======================================================== */
+      const docTitle = document.getElementById("doc-title");
+      const navInitials = document.getElementById("nav-initials");
+      const navName = document.getElementById("nav-name");
+      const navStatusBadge = document.getElementById("nav-status-badge");
+      const heroPillText = document.getElementById("hero-pill-text");
+      const heroHeading = document.getElementById("hero-heading");
+      const heroName = document.getElementById("hero-name");
+      const heroEmailDisplay = document.getElementById("hero-email-display");
+      const stat1Val = document.getElementById("stat-1-val");
+      const stat1Lbl = document.getElementById("stat-1-lbl");
+      const stat2Val = document.getElementById("stat-2-val");
+      const stat2Lbl = document.getElementById("stat-2-lbl");
+      const stat3Val = document.getElementById("stat-3-val");
+      const stat3Lbl = document.getElementById("stat-3-lbl");
+      const stat4Val = document.getElementById("stat-4-val");
+      const stat4Lbl = document.getElementById("stat-4-lbl");
+      const aboutBio1 = document.getElementById("about-bio-1");
+      const aboutBio2 = document.getElementById("about-bio-2");
+      const aboutQuote = document.getElementById("about-quote");
+      const aboutLocationVal = document.getElementById("about-location-val");
+      const aboutStatusVal = document.getElementById("about-status-val");
+      const downloadCvBtn = document.getElementById("download-cv-btn");
+      const footerAuthorName = document.getElementById("footer-author-name");
+
+      const contactEmailLink = document.getElementById("contact-email-link");
+      const contactEmailText = document.getElementById("contact-email-text");
+      const contactGithubLink = document.getElementById("contact-github-link");
+      const contactGithubText = document.getElementById("contact-github-text");
+      const contactLinkedinLink = document.getElementById(
+        "contact-linkedin-link",
+      );
+      const contactLinkedinText = document.getElementById(
+        "contact-linkedin-text",
+      );
+
+      // Video DOM elements
+      const bgVideo = document.getElementById("bg-video-element");
+      const bgSource = document.getElementById("bg-video-source");
+      const bgOverlay = document.getElementById("bg-overlay");
+      const presetsContainer = document.getElementById("presets-container");
+      const activeVideoCount = document.getElementById("active-video-count");
+
+      const opacitySlider = document.getElementById("opacity-slider");
+      const opacityLabel = document.getElementById("opacity-label");
+      const blurSlider = document.getElementById("blur-slider");
+      const blurLabel = document.getElementById("blur-label");
+      const speedSlider = document.getElementById("speed-slider");
+      const speedLabel = document.getElementById("speed-label");
+      const toggleVideoMute = document.getElementById("toggle-video-mute");
+      const videoMuteText = document.getElementById("video-mute-text");
+
+      // Grids & Timeline
+      const skillsGrid = document.getElementById("skills-grid");
+      const skillFilterBtns = document.querySelectorAll(".skill-filter-btn");
+      const projectsGrid = document.getElementById("projects-grid");
+      const experienceTimeline = document.getElementById("experience-timeline");
+
+      // CMS Inputs
+      const cmsInputName = document.getElementById("cms-input-name");
+      const cmsInputInitials = document.getElementById("cms-input-initials");
+      const cmsInputHeroTitle = document.getElementById("cms-input-hero-title");
+      const cmsInputRoles = document.getElementById("cms-input-roles");
+      const cmsInputHeroPill = document.getElementById("cms-input-hero-pill");
+      const cmsInputStatusBadge = document.getElementById(
+        "cms-input-status-badge",
+      );
+      const cmsInputLocation = document.getElementById("cms-input-location");
+      const cmsInputBio1 = document.getElementById("cms-input-bio1");
+      const cmsInputBio2 = document.getElementById("cms-input-bio2");
+      const cmsInputQuote = document.getElementById("cms-input-quote");
+      const cmsInputStat1Val = document.getElementById("cms-input-stat1-val");
+      const cmsInputStat1Lbl = document.getElementById("cms-input-stat1-lbl");
+      const cmsInputStat2Val = document.getElementById("cms-input-stat2-val");
+      const cmsInputStat2Lbl = document.getElementById("cms-input-stat2-lbl");
+      const cmsInputStat3Val = document.getElementById("cms-input-stat3-val");
+      const cmsInputStat3Lbl = document.getElementById("cms-input-stat3-lbl");
+      const cmsInputStat4Val = document.getElementById("cms-input-stat4-val");
+      const cmsInputStat4Lbl = document.getElementById("cms-input-stat4-lbl");
+      const cmsInputEmail = document.getElementById("cms-input-email");
+      const cmsInputGithub = document.getElementById("cms-input-github");
+      const cmsInputLinkedin = document.getElementById("cms-input-linkedin");
+      const cmsInputCvUrl = document.getElementById("cms-input-cv-url");
+
+      function renderAll() {
+        const p = appState.profile;
+        const s = appState.stats;
+
+        docTitle.textContent = `${p.name} — Full-Stack & Creative Portfolio`;
+        navInitials.textContent = p.initials || "RM";
+        navName.textContent = p.name;
+        navStatusBadge.textContent = p.statusBadge;
+        heroPillText.textContent = p.heroPill;
+        heroHeading.innerHTML = p.heroTitle.replace(
+          /(berjiwa estetis|modern architecture|inovatif)/gi,
+          '<span class="bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent text-glow">$1</span>',
+        );
+        heroName.textContent = p.name;
+        heroEmailDisplay.textContent = p.email;
+
+        stat1Val.textContent = s.stat1Val;
+        stat1Lbl.textContent = s.stat1Lbl;
+        stat2Val.textContent = s.stat2Val;
+        stat2Lbl.textContent = s.stat2Lbl;
+        stat3Val.textContent = s.stat3Val;
+        stat3Lbl.textContent = s.stat3Lbl;
+        stat4Val.textContent = s.stat4Val;
+        stat4Lbl.textContent = s.stat4Lbl;
+
+        aboutBio1.innerHTML = p.bio1;
+        aboutBio2.innerHTML = p.bio2;
+        aboutQuote.textContent = p.quote;
+        aboutLocationVal.textContent = p.location;
+        aboutStatusVal.textContent = p.statusBadge;
+        downloadCvBtn.href = p.cvUrl || "#";
+        footerAuthorName.textContent = p.name;
+
+        contactEmailLink.href = `mailto:${p.email}`;
+        contactEmailText.textContent = p.email;
+        contactGithubLink.href = p.github;
+        contactGithubText.textContent = p.github.replace("https://", "");
+        contactLinkedinLink.href = p.linkedin;
+        contactLinkedinText.textContent = p.linkedin.replace("https://", "");
+
+        applyVideoSettings();
+        renderVideoList();
+        renderSkills("all");
+        renderProjects();
+        renderExperience();
+        populateCmsInputs();
+        renderCmsProjectList();
+        renderCmsSkillList();
+
+        // Setup Music
+        floatingWidget.style.display = appState.musicSettings.showFloatingWidget
+          ? "flex"
+          : "none";
+        cmsToggleFloatingWidget.checked =
+          appState.musicSettings.showFloatingWidget;
+        cmsMusicVolume.value = appState.musicSettings.volume;
+        cmsLoopIcon.classList.toggle(
+          "text-indigo-400",
+          !!appState.musicSettings.isLooping,
+        );
+        loadTrack(appState.musicSettings.currentTrackIndex || 0, false);
+
+        if (window.lucide) lucide.createIcons();
+        initCardTilt();
+        attachCursorHoverEffects();
+      }
+
+      function populateCmsInputs() {
+        const p = appState.profile;
+        const s = appState.stats;
+
+        cmsInputName.value = p.name;
+        cmsInputInitials.value = p.initials;
+        cmsInputHeroTitle.value = p.heroTitle;
+        cmsInputRoles.value = p.roles.join(", ");
+        cmsInputHeroPill.value = p.heroPill;
+        cmsInputStatusBadge.value = p.statusBadge;
+        cmsInputLocation.value = p.location;
+        cmsInputBio1.value = p.bio1;
+        cmsInputBio2.value = p.bio2;
+        cmsInputQuote.value = p.quote;
+
+        cmsInputStat1Val.value = s.stat1Val;
+        cmsInputStat1Lbl.value = s.stat1Lbl;
+        cmsInputStat2Val.value = s.stat2Val;
+        cmsInputStat2Lbl.value = s.stat2Lbl;
+        cmsInputStat3Val.value = s.stat3Val;
+        cmsInputStat3Lbl.value = s.stat3Lbl;
+        cmsInputStat4Val.value = s.stat4Val;
+        cmsInputStat4Lbl.value = s.stat4Lbl;
+
+        cmsInputEmail.value = p.email;
+        cmsInputGithub.value = p.github;
+        cmsInputLinkedin.value = p.linkedin;
+        cmsInputCvUrl.value = p.cvUrl;
+      }
+
+      /* ========================================================
+           7. SECRET ACCESS AUTHENTICATION
+           ======================================================== */
+      const secretAvatarBtn = document.getElementById("secret-avatar-btn");
+      const secretFooterTrigger = document.getElementById(
+        "secret-footer-trigger",
+      );
+      const secretPinModal = document.getElementById("secret-pin-modal");
+      const secretPinInput = document.getElementById("secret-pin-input");
+      const pinForm = document.getElementById("pin-form");
+      const pinErrorMsg = document.getElementById("pin-error-msg");
+      const closePinModal = document.getElementById("close-pin-modal");
+      const cancelPinBtn = document.getElementById("cancel-pin-btn");
+
+      const secretAdminDrawer = document.getElementById("secret-admin-drawer");
+      const closeAdminDrawer = document.getElementById("close-admin-drawer");
+      const lockAdminBtn = document.getElementById("lock-admin-btn");
+      const newPinInput = document.getElementById("new-pin-input");
+      const saveNewPinBtn = document.getElementById("save-new-pin-btn");
+
+      let avatarClickCount = 0;
+      let avatarClickTimer = null;
+      secretAvatarBtn.addEventListener("click", () => {
+        avatarClickCount++;
+        clearTimeout(avatarClickTimer);
+        avatarClickTimer = setTimeout(() => {
+          avatarClickCount = 0;
+        }, 1200);
+
+        if (avatarClickCount >= 5) {
+          avatarClickCount = 0;
+          promptSecretAccess();
+        }
+      });
+
+      let footerClickCount = 0;
+      let footerClickTimer = null;
+      secretFooterTrigger.addEventListener("click", () => {
+        footerClickCount++;
+        clearTimeout(footerClickTimer);
+        footerClickTimer = setTimeout(() => {
+          footerClickCount = 0;
+        }, 900);
+
+        if (footerClickCount >= 3) {
+          footerClickCount = 0;
+          promptSecretAccess();
+        }
+      });
+
+      window.addEventListener("keydown", (e) => {
+        if (
+          (e.ctrlKey && e.shiftKey && (e.code === "KeyB" || e.key === "B")) ||
+          (e.altKey && e.shiftKey && (e.code === "KeyS" || e.key === "S"))
+        ) {
+          e.preventDefault();
+          promptSecretAccess();
+        }
+      });
+
+      function promptSecretAccess() {
+        if (isAuthenticatedAdmin) {
+          openAdminDrawer();
+          return;
+        }
+        pinErrorMsg.classList.add("hidden");
+        secretPinInput.value = "";
+        secretPinModal.classList.remove("hidden");
+        setTimeout(() => {
+          secretPinModal.classList.remove("opacity-0");
+          secretPinModal.querySelector("div").classList.remove("scale-95");
+          secretPinModal.querySelector("div").classList.add("scale-100");
+          secretPinInput.focus();
+        }, 10);
+      }
+
+      function closePinDialog() {
+        secretPinModal.classList.add("opacity-0");
+        secretPinModal.querySelector("div").classList.remove("scale-100");
+        secretPinModal.querySelector("div").classList.add("scale-95");
+        setTimeout(() => {
+          secretPinModal.classList.add("hidden");
+        }, 300);
+      }
+
+      closePinModal.addEventListener("click", closePinDialog);
+      cancelPinBtn.addEventListener("click", closePinDialog);
+
+      pinForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const entered = secretPinInput.value.trim();
+        if (entered === currentPin) {
+          isAuthenticatedAdmin = true;
+          closePinDialog();
+          openAdminDrawer();
+          showToast(
+            "Akses Diberikan",
+            "Selamat datang di Owner Soundtrack & Control Studio.",
+          );
+        } else {
+          pinErrorMsg.classList.remove("hidden");
+          secretPinInput.value = "";
+          secretPinInput.focus();
+        }
+      });
+
+      function openAdminDrawer() {
+        populateCmsInputs();
+        renderCmsProjectList();
+        renderCmsSkillList();
+        renderPlaylistItems();
+        secretAdminDrawer.classList.remove("translate-x-full");
+        if (window.lucide) lucide.createIcons();
+        attachCursorHoverEffects();
+      }
+
+      function closeAdminDrawerFn() {
+        secretAdminDrawer.classList.add("translate-x-full");
+      }
+
+      closeAdminDrawer.addEventListener("click", closeAdminDrawerFn);
+
+      lockAdminBtn.addEventListener("click", () => {
+        isAuthenticatedAdmin = false;
+        closeAdminDrawerFn();
+        showToast(
+          "Studio Terkunci",
+          "Panel rahasia telah ditutup dan dikunci kembali.",
+        );
+      });
+
+      saveNewPinBtn.addEventListener("click", () => {
+        const val = newPinInput.value.trim();
+        if (val.length >= 4) {
+          currentPin = val;
+          localStorage.setItem("portfolio_secret_pin", val);
+          newPinInput.value = "";
+          showToast("PIN Diperbarui", "PIN keamanan baru berhasil disimpan.");
+        } else {
+          showToast("Gagal", "PIN minimal harus 4 karakter!");
+        }
+      });
+
+      // Tab Navigation inside Drawer
+      const cmsTabBtns = document.querySelectorAll(".cms-tab-btn");
+      const cmsTabPanes = document.querySelectorAll(".cms-tab-pane");
+
+      cmsTabBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const targetTab = btn.dataset.tab;
+          cmsTabBtns.forEach((b) => {
+            b.classList.remove("bg-indigo-600", "text-white", "font-semibold");
+            b.classList.add("text-zinc-400", "glass-panel-subtle");
+          });
+          btn.classList.add("bg-indigo-600", "text-white", "font-semibold");
+          btn.classList.remove("text-zinc-400", "glass-panel-subtle");
+
+          cmsTabPanes.forEach((pane) => {
+            if (pane.id === targetTab) {
+              pane.classList.remove("hidden");
+            } else {
+              pane.classList.add("hidden");
+            }
+          });
+          if (window.lucide) lucide.createIcons();
+          attachCursorHoverEffects();
+        });
+      });
+
+      // Save Profile Action
+      document
+        .getElementById("save-profile-btn")
+        .addEventListener("click", () => {
+          appState.profile.name =
+            cmsInputName.value.trim() || appState.profile.name;
+          appState.profile.initials =
+            cmsInputInitials.value.trim().toUpperCase() || "RM";
+          appState.profile.heroTitle =
+            cmsInputHeroTitle.value.trim() || appState.profile.heroTitle;
+
+          const rawRoles = cmsInputRoles.value
+            .split(",")
+            .map((r) => r.trim())
+            .filter(Boolean);
+          if (rawRoles.length > 0) appState.profile.roles = rawRoles;
+
+          appState.profile.heroPill = cmsInputHeroPill.value.trim();
+          appState.profile.statusBadge = cmsInputStatusBadge.value.trim();
+          appState.profile.location = cmsInputLocation.value.trim();
+          appState.profile.bio1 = cmsInputBio1.value.trim();
+          appState.profile.bio2 = cmsInputBio2.value.trim();
+          appState.profile.quote = cmsInputQuote.value.trim();
+
+          appState.stats.stat1Val = cmsInputStat1Val.value.trim();
+          appState.stats.stat1Lbl = cmsInputStat1Lbl.value.trim();
+          appState.stats.stat2Val = cmsInputStat2Val.value.trim();
+          appState.stats.stat2Lbl = cmsInputStat2Lbl.value.trim();
+          appState.stats.stat3Val = cmsInputStat3Val.value.trim();
+          appState.stats.stat3Lbl = cmsInputStat3Lbl.value.trim();
+          appState.stats.stat4Val = cmsInputStat4Val.value.trim();
+          appState.stats.stat4Lbl = cmsInputStat4Lbl.value.trim();
+
+          appState.profile.email = cmsInputEmail.value.trim();
+          appState.profile.github = cmsInputGithub.value.trim();
+          appState.profile.linkedin = cmsInputLinkedin.value.trim();
+          appState.profile.cvUrl = cmsInputCvUrl.value.trim();
+
+          saveState();
+          renderAll();
+          showToast(
+            "Profil Disimpan",
+            "Seluruh data profil & teks berhasil diperbarui.",
+          );
+        });
+
+      /* ========================================================
+           8. VIDEO BACKGROUND ENGINE
+           ======================================================== */
+      function applyVideoSettings() {
+        const vs = appState.videoSettings;
+        bgSource.src = vs.activeUrl;
+        bgVideo.load();
+        bgVideo.playbackRate = vs.speed || 1.0;
+        bgVideo.muted = vs.muted;
+        bgVideo.style.opacity = vs.opacity / 100;
+        bgOverlay.style.backdropFilter = `blur(${vs.blur}px)`;
+        bgOverlay.style.webkitBackdropFilter = `blur(${vs.blur}px)`;
+        bgVideo.play().catch(() => {});
+
+        opacitySlider.value = vs.opacity;
+        opacityLabel.textContent = `${vs.opacity}%`;
+        blurSlider.value = vs.blur;
+        blurLabel.textContent = `${vs.blur}px`;
+        speedSlider.value = vs.speed;
+        speedLabel.textContent = `${vs.speed}x`;
+
+        videoMuteText.textContent = vs.muted
+          ? "Suara Video: Off"
+          : "Suara Video: On";
+      }
+
+      function renderVideoList() {
+        presetsContainer.innerHTML = "";
+        activeVideoCount.textContent = `${appState.videos.length} Video`;
+
+        appState.videos.forEach((item) => {
+          const isActive = item.url === appState.videoSettings.activeUrl;
+          const card = document.createElement("div");
+          card.className = `p-2.5 rounded-xl border transition-all text-xs flex items-center justify-between gap-2 group ${
+            isActive
+              ? "border-indigo-400 bg-indigo-500/20 text-white"
+              : "border-white/10 glass-panel-subtle hover:bg-white/10 text-zinc-300"
+          }`;
+
+          card.innerHTML = `
+                    <div class="flex-1 cursor-pointer min-w-0" data-url="${item.url}" data-interactive="true">
+                        <div class="font-bold flex items-center gap-1.5 truncate">
+                            <i data-lucide="${isActive ? "check-circle" : "play"}" class="w-3.5 h-3.5 ${isActive ? "text-indigo-400" : "text-zinc-400"}"></i>
+                            <span class="truncate">${item.name}</span>
+                            ${item.isCustom ? '<span class="text-[9px] px-1.5 py-0.5 rounded bg-indigo-900/60 text-indigo-300 font-mono">Custom</span>' : ""}
+                        </div>
+                        <p class="text-[10px] text-zinc-400 truncate mt-0.5">${item.desc}</p>
+                    </div>
+                    ${
+                      item.isCustom
+                        ? `
+                        <button class="delete-video-btn p-1.5 rounded-lg text-zinc-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors" data-id="${item.id}" data-interactive="true" title="Hapus Video">
+                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                        </button>
+                    `
+                        : ""
+                    }
+                `;
+
+          card.querySelector("[data-url]").addEventListener("click", () => {
+            switchVideo(item.url, item.name);
+          });
+
+          if (item.isCustom) {
+            card
+              .querySelector(".delete-video-btn")
+              .addEventListener("click", (e) => {
+                e.stopPropagation();
+                deleteCustomVideo(item.id);
+              });
+          }
+
+          presetsContainer.appendChild(card);
+        });
+        if (window.lucide) lucide.createIcons();
+        attachCursorHoverEffects();
+      }
+
+      function switchVideo(url, name = "Latar Video") {
+        appState.videoSettings.activeUrl = url;
+        saveState();
+
+        bgVideo.classList.add("opacity-0");
+        setTimeout(() => {
+          bgSource.src = url;
+          bgVideo.load();
+          bgVideo.playbackRate = appState.videoSettings.speed;
+          bgVideo.play().catch(() => {});
+          bgVideo.classList.remove("opacity-0");
+        }, 300);
+
+        renderVideoList();
+        showToast("Latar Video Diperbarui", name);
+      }
+
+      function deleteCustomVideo(id) {
+        const idx = appState.videos.findIndex((v) => v.id === id);
+        if (idx !== -1) {
+          const wasActive =
+            appState.videos[idx].url === appState.videoSettings.activeUrl;
+          appState.videos.splice(idx, 1);
+          if (wasActive && appState.videos.length > 0) {
+            switchVideo(appState.videos[0].url, appState.videos[0].name);
+          } else {
+            renderVideoList();
+          }
+          saveState();
+          showToast("Video Dihapus", "Preset video berhasil dihapus.");
+        }
+      }
+
+      document
+        .getElementById("apply-custom-video")
+        .addEventListener("click", () => {
+          const input = document.getElementById("custom-video-input");
+          const titleInput = document.getElementById("custom-video-title");
+          const url = input.value.trim();
+          const name =
+            titleInput.value.trim() ||
+            "Custom Video " + (appState.videos.length + 1);
+
+          if (url) {
+            const newVid = {
+              id: "custom-" + Date.now(),
+              name: name,
+              desc: url.length > 40 ? url.substring(0, 38) + "..." : url,
+              url: url,
+              isCustom: true,
+            };
+            appState.videos.push(newVid);
+            saveState();
+            switchVideo(url, name);
+            input.value = "";
+            titleInput.value = "";
+          } else {
+            showToast("Gagal", "Masukkan link URL video MP4 yang valid.");
+          }
+        });
+
+      document
+        .getElementById("local-video-input")
+        .addEventListener("change", (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const objectUrl = URL.createObjectURL(file);
+            const fileName = file.name.replace(/\.[^/.]+$/, "");
+            const newVid = {
+              id: "custom-" + Date.now(),
+              name: fileName,
+              desc: "Video lokal perangkat",
+              url: objectUrl,
+              isCustom: true,
+            };
+            appState.videos.push(newVid);
+            saveState();
+            switchVideo(objectUrl, fileName);
+          }
+        });
+
+      const tabBtnUrl = document.getElementById("tab-btn-url");
+      const tabBtnFile = document.getElementById("tab-btn-file");
+      const addUrlContainer = document.getElementById("add-url-container");
+      const addFileContainer = document.getElementById("add-file-container");
+
+      tabBtnUrl.addEventListener("click", () => {
+        tabBtnUrl.classList.add("bg-indigo-600", "text-white", "font-semibold");
+        tabBtnUrl.classList.remove("text-zinc-400");
+        tabBtnFile.classList.remove(
+          "bg-indigo-600",
+          "text-white",
+          "font-semibold",
+        );
+        tabBtnFile.classList.add("text-zinc-400");
+        addUrlContainer.classList.remove("hidden");
+        addFileContainer.classList.add("hidden");
+      });
+
+      tabBtnFile.addEventListener("click", () => {
+        tabBtnFile.classList.add(
+          "bg-indigo-600",
+          "text-white",
+          "font-semibold",
+        );
+        tabBtnFile.classList.remove("text-zinc-400");
+        tabBtnUrl.classList.remove(
+          "bg-indigo-600",
+          "text-white",
+          "font-semibold",
+        );
+        tabBtnUrl.classList.add("text-zinc-400");
+        addFileContainer.classList.remove("hidden");
+        addUrlContainer.classList.add("hidden");
+      });
+
+      opacitySlider.addEventListener("input", (e) => {
+        const val = e.target.value;
+        opacityLabel.textContent = `${val}%`;
+        bgVideo.style.opacity = val / 100;
+        appState.videoSettings.opacity = parseInt(val);
+        saveState();
+      });
+
+      blurSlider.addEventListener("input", (e) => {
+        const val = e.target.value;
+        blurLabel.textContent = `${val}px`;
+        bgOverlay.style.backdropFilter = `blur(${val}px)`;
+        bgOverlay.style.webkitBackdropFilter = `blur(${val}px)`;
+        appState.videoSettings.blur = parseInt(val);
+        saveState();
+      });
+
+      speedSlider.addEventListener("input", (e) => {
+        const val = e.target.value;
+        speedLabel.textContent = `${val}x`;
+        bgVideo.playbackRate = parseFloat(val);
+        appState.videoSettings.speed = parseFloat(val);
+        saveState();
+      });
+
+      toggleVideoMute.addEventListener("click", () => {
+        appState.videoSettings.muted = !appState.videoSettings.muted;
+        bgVideo.muted = appState.videoSettings.muted;
+        videoMuteText.textContent = appState.videoSettings.muted
+          ? "Suara Video: Off"
+          : "Suara Video: On";
+        saveState();
+        showToast(
+          "Audio Video",
+          appState.videoSettings.muted ? "Audio dimatikan" : "Audio diaktifkan",
+        );
+      });
+
+      document
+        .getElementById("reset-bg-settings")
+        .addEventListener("click", () => {
+          appState.videoSettings = JSON.parse(
+            JSON.stringify(DEFAULT_CONFIG.videoSettings),
+          );
+          appState.videos = JSON.parse(JSON.stringify(DEFAULT_CONFIG.videos));
+          saveState();
+          applyVideoSettings();
+          renderVideoList();
+          showToast(
+            "Default Pulih",
+            "Pengaturan video dikembalikan ke bawaan.",
+          );
+        });
+
+      /* ========================================================
+           9. PROJECTS CRUD MANAGER
+           ======================================================== */
+      const projectForm = document.getElementById("project-form");
+      const btnShowAddProject = document.getElementById("btn-show-add-project");
+      const cancelProjectForm = document.getElementById("cancel-project-form");
+      const projectEditId = document.getElementById("project-edit-id");
+      const projectFormTitle = document.getElementById("project-form-title");
+
+      btnShowAddProject.addEventListener("click", () => {
+        projectForm.reset();
+        projectEditId.value = "";
+        projectFormTitle.textContent = "Tambah Proyek Baru";
+        projectForm.classList.remove("hidden");
+      });
+
+      cancelProjectForm.addEventListener("click", () => {
+        projectForm.classList.add("hidden");
+      });
+
+      projectForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const id = projectEditId.value || "proj-" + Date.now();
+        const tags = document
+          .getElementById("project-input-tags")
+          .value.split(",")
+          .map((t) => t.trim())
+          .filter(Boolean);
+
+        const newProject = {
+          id: id,
+          title: document.getElementById("project-input-title").value.trim(),
+          tagline: document
+            .getElementById("project-input-tagline")
+            .value.trim(),
+          description: document
+            .getElementById("project-input-desc")
+            .value.trim(),
+          badge:
+            document.getElementById("project-input-badge").value.trim() ||
+            "Project",
+          gradient: document.getElementById("project-input-gradient").value,
+          tags: tags.length ? tags : ["Web App"],
+          demo:
+            document.getElementById("project-input-demo").value.trim() || "#",
+          github:
+            document.getElementById("project-input-github").value.trim() ||
+            "https://github.com",
+        };
+
+        const existingIdx = appState.projects.findIndex((p) => p.id === id);
+        if (existingIdx !== -1) {
+          appState.projects[existingIdx] = newProject;
+          showToast("Proyek Diperbarui", newProject.title);
+        } else {
+          appState.projects.unshift(newProject);
+          showToast("Proyek Ditambahkan", newProject.title);
+        }
+
+        saveState();
+        renderProjects();
+        renderCmsProjectList();
+        projectForm.classList.add("hidden");
+      });
+
+      function renderCmsProjectList() {
+        const list = document.getElementById("cms-project-list");
+        list.innerHTML = "";
+
+        appState.projects.forEach((proj, idx) => {
+          const item = document.createElement("div");
+          item.className =
+            "p-3 rounded-xl glass-panel-subtle border border-white/10 flex items-center justify-between gap-2";
+          item.innerHTML = `
+                    <div class="min-w-0 flex-1">
+                        <div class="font-bold text-white text-xs truncate">${proj.title}</div>
+                        <div class="text-[10px] text-zinc-400 font-mono truncate">${proj.tagline}</div>
+                    </div>
+                    <div class="flex items-center gap-1.5 flex-shrink-0">
+                        <button class="edit-proj-btn p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-indigo-300" data-idx="${idx}" data-interactive="true" title="Edit">
+                            <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                        </button>
+                        <button class="del-proj-btn p-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400" data-idx="${idx}" data-interactive="true" title="Hapus">
+                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                `;
+
+          item
+            .querySelector(".edit-proj-btn")
+            .addEventListener("click", () => openEditProject(proj));
+          item.querySelector(".del-proj-btn").addEventListener("click", () => {
+            appState.projects.splice(idx, 1);
+            saveState();
+            renderProjects();
+            renderCmsProjectList();
+            showToast("Dihapus", "Proyek berhasil dihapus");
+          });
+
+          list.appendChild(item);
+        });
+        if (window.lucide) lucide.createIcons();
+        attachCursorHoverEffects();
+      }
+
+      function openEditProject(proj) {
+        projectForm.classList.remove("hidden");
+        projectFormTitle.textContent = "Edit Proyek: " + proj.title;
+        projectEditId.value = proj.id;
+        document.getElementById("project-input-title").value = proj.title;
+        document.getElementById("project-input-tagline").value = proj.tagline;
+        document.getElementById("project-input-desc").value = proj.description;
+        document.getElementById("project-input-badge").value = proj.badge;
+        document.getElementById("project-input-gradient").value = proj.gradient;
+        document.getElementById("project-input-tags").value =
+          proj.tags.join(", ");
+        document.getElementById("project-input-demo").value = proj.demo;
+        document.getElementById("project-input-github").value = proj.github;
+      }
+
+      function renderProjects() {
+        projectsGrid.innerHTML = "";
+        appState.projects.forEach((item) => {
+          const card = document.createElement("div");
+          card.className =
+            "glass-panel rounded-3xl p-6 border border-white/10 hover:border-indigo-500/40 transition-all duration-300 flex flex-col justify-between group tilt-card";
+          card.setAttribute("data-interactive", "true");
+          card.innerHTML = `
+                    <div class="tilt-glare"></div>
+                    <div>
+                        <div class="w-full h-44 rounded-2xl bg-gradient-to-br ${item.gradient} p-4 flex flex-col justify-between border border-white/10 mb-5 relative overflow-hidden">
+                            <div class="flex justify-between items-center">
+                                <span class="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-black/40 text-indigo-300 backdrop-blur-md border border-white/10">
+                                    ${item.badge}
+                                </span>
+                                <div class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white/80 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-white group-hover:text-indigo-200 transition-colors">${item.title}</h4>
+                                <p class="text-xs text-zinc-300 line-clamp-1">${item.tagline}</p>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-zinc-400 leading-relaxed mb-4 line-clamp-3">
+                            ${item.description}
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-5">
+                            ${item.tags.map((t) => `<span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white/5 text-zinc-300 border border-white/5">${t}</span>`).join("")}
+                        </div>
+
+                        <div class="flex items-center gap-2 pt-3 border-t border-white/10">
+                            <button class="view-project-btn tactile-btn flex-1 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors" data-id="${item.id}" data-interactive="true">
+                                <span>Detail Proyek</span>
+                                <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                            </button>
+                            <a href="${item.github}" target="_blank" rel="noopener noreferrer" data-interactive="true" class="tactile-btn p-2.5 rounded-xl glass-panel-subtle hover:bg-white/10 text-zinc-300 hover:text-white transition-colors" title="Repository">
+                                <i data-lucide="github" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+          projectsGrid.appendChild(card);
+        });
+
+        document.querySelectorAll(".view-project-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const project = appState.projects.find(
+              (p) => p.id === btn.dataset.id,
+            );
+            if (project) openProjectModal(project);
+          });
+        });
+
+        if (window.lucide) lucide.createIcons();
+        initCardTilt();
+        attachCursorHoverEffects();
+      }
+
+      const projectModal = document.getElementById("project-modal");
+      const projectModalContent = document.getElementById(
+        "project-modal-content",
+      );
+      const modalBody = document.getElementById("modal-body");
+      const closeProjectModal = document.getElementById("close-project-modal");
+
+      function openProjectModal(project) {
+        modalBody.innerHTML = `
+                <div class="space-y-5">
+                    <span class="text-xs font-mono px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                        ${project.badge}
+                    </span>
+                    <div>
+                        <h3 class="text-2xl font-extrabold text-white">${project.title}</h3>
+                        <p class="text-sm text-indigo-300 font-mono mt-1">${project.tagline}</p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/40 border border-white/10 text-xs sm:text-sm text-zinc-300 leading-relaxed space-y-3">
+                        <p>${project.description}</p>
+                        <p>Dikonfigurasi dengan decoupling module modern, micro-state reactivity, dan optimalisasi Lighthouse Core Web Vitals.</p>
+                    </div>
+
+                    <div>
+                        <div class="text-xs font-mono uppercase text-zinc-400 mb-2">Teknologi Terpakai:</div>
+                        <div class="flex flex-wrap gap-2">
+                            ${project.tags.map((tag) => `<span class="text-xs font-mono px-2.5 py-1 rounded-lg bg-indigo-950/60 text-indigo-200 border border-indigo-500/20">${tag}</span>`).join("")}
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 pt-4 border-t border-white/10">
+                        <a href="${project.demo}" target="_blank" rel="noopener noreferrer" data-interactive="true" class="tactile-btn flex-1 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs text-center transition-colors flex items-center justify-center gap-2">
+                            <span>Buka Live Demo</span>
+                            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                        </a>
+                        <a href="${project.github}" target="_blank" rel="noopener noreferrer" data-interactive="true" class="tactile-btn px-4 py-3 rounded-xl glass-panel-subtle hover:bg-white/10 text-zinc-300 text-xs font-semibold transition-colors flex items-center gap-2">
+                            <i data-lucide="github" class="w-3.5 h-3.5"></i>
+                            <span>Repository</span>
+                        </a>
+                    </div>
+                </div>
+            `;
+        projectModal.classList.remove("hidden");
+        setTimeout(() => {
+          projectModal.classList.remove("opacity-0");
+          projectModalContent.classList.remove("scale-95");
+          projectModalContent.classList.add("scale-100");
+        }, 10);
+        if (window.lucide) lucide.createIcons();
+        attachCursorHoverEffects();
+      }
+
+      closeProjectModal.addEventListener("click", () => {
+        projectModal.classList.add("opacity-0");
+        projectModalContent.classList.remove("scale-100");
+        projectModalContent.classList.add("scale-95");
+        setTimeout(() => {
+          projectModal.classList.add("hidden");
+        }, 300);
+      });
+
+      /* ========================================================
+           10. SKILLS CRUD MANAGER
+           ======================================================== */
+      document.getElementById("skill-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const newSkill = {
+          id: "s-" + Date.now(),
+          name: document.getElementById("skill-input-name").value.trim(),
+          category: document.getElementById("skill-input-category").value,
+          level: document.getElementById("skill-input-level").value.trim(),
+          rating: document.getElementById("skill-input-rating").value.trim(),
+        };
+        appState.skills.push(newSkill);
+        saveState();
+        renderSkills("all");
+        renderCmsSkillList();
+        document.getElementById("skill-form").reset();
+        showToast("Keahlian Ditambah", newSkill.name);
+      });
+
+      function renderCmsSkillList() {
+        const list = document.getElementById("cms-skill-list");
+        list.innerHTML = "";
+        appState.skills.forEach((skill, idx) => {
+          const item = document.createElement("div");
+          item.className =
+            "p-2.5 rounded-xl glass-panel-subtle border border-white/10 flex items-center justify-between gap-2";
+          item.innerHTML = `
+                    <div class="min-w-0 flex-1">
+                        <span class="font-bold text-white text-xs">${skill.name}</span>
+                        <span class="text-[10px] text-zinc-400 font-mono ml-2">(${skill.category} • ${skill.rating}%)</span>
+                    </div>
+                    <button class="del-skill-btn p-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400" data-idx="${idx}" data-interactive="true">
+                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                    </button>
+                `;
+          item.querySelector(".del-skill-btn").addEventListener("click", () => {
+            appState.skills.splice(idx, 1);
+            saveState();
+            renderSkills("all");
+            renderCmsSkillList();
+          });
+          list.appendChild(item);
+        });
+        if (window.lucide) lucide.createIcons();
+        attachCursorHoverEffects();
+      }
+
+      function renderSkills(filter = "all") {
+        skillsGrid.innerHTML = "";
+        const filtered =
+          filter === "all"
+            ? appState.skills
+            : appState.skills.filter((s) => s.category === filter);
+
+        filtered.forEach((skill) => {
+          const el = document.createElement("div");
+          el.className =
+            "glass-panel p-4 rounded-2xl border border-white/10 hover:border-indigo-500/40 transition-all duration-300 group tilt-card";
+          el.setAttribute("data-interactive", "true");
+          el.innerHTML = `
+                    <div class="tilt-glare"></div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-indigo-400 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                            <i data-lucide="code" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-[11px] font-mono text-zinc-400 group-hover:text-indigo-300">${skill.rating}%</span>
+                    </div>
+                    <h4 class="font-bold text-white text-xs sm:text-sm tracking-tight mb-1 truncate">${skill.name}</h4>
+                    <div class="flex items-center justify-between text-[11px] text-zinc-400 font-mono">
+                        <span>Level</span>
+                        <span class="text-zinc-300 font-medium">${skill.level}</span>
+                    </div>
+                    <div class="w-full bg-white/5 h-1.5 rounded-full mt-3 overflow-hidden">
+                        <div class="bg-gradient-to-r from-indigo-500 to-pink-500 h-full rounded-full transition-all duration-1000" style="width: ${skill.rating}%"></div>
+                    </div>
+                `;
+          skillsGrid.appendChild(el);
+        });
+        if (window.lucide) lucide.createIcons();
+        initCardTilt();
+        attachCursorHoverEffects();
+      }
+
+      skillFilterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          skillFilterBtns.forEach((b) => {
+            b.classList.remove("bg-indigo-600", "text-white", "font-semibold");
+            b.classList.add("glass-panel", "text-zinc-300");
+          });
+          btn.classList.add("bg-indigo-600", "text-white", "font-semibold");
+          btn.classList.remove("glass-panel", "text-zinc-300");
+          renderSkills(btn.dataset.category);
+        });
+      });
+
+      /* ========================================================
+           11. EXPERIENCE TIMELINE
+           ======================================================== */
+      function renderExperience() {
+        experienceTimeline.innerHTML = "";
+        appState.experience.forEach((item, idx) => {
+          const colors = [
+            "bg-indigo-600",
+            "bg-purple-500",
+            "bg-pink-500",
+            "bg-cyan-500",
+          ];
+          const color = colors[idx % colors.length];
+
+          const block = document.createElement("div");
+          block.className = "relative pl-6 sm:pl-8 group";
+          block.innerHTML = `
+                    <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full ${color} border-4 border-[#07070e] group-hover:scale-125 transition-transform"></span>
+                    <div class="glass-panel p-6 rounded-2xl hover:border-indigo-500/40 transition-colors tilt-card" data-interactive="true">
+                        <div class="tilt-glare"></div>
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between text-xs font-mono text-zinc-400 gap-1 mb-2">
+                            <span class="text-indigo-400 font-semibold text-sm">${item.role}</span>
+                            <span class="bg-white/5 px-2.5 py-1 rounded-md">${item.period}</span>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-2">${item.company}</h3>
+                        <p class="text-zinc-300 text-xs sm:text-sm leading-relaxed">${item.desc}</p>
+                    </div>
+                `;
+          experienceTimeline.appendChild(block);
+        });
+        initCardTilt();
+        attachCursorHoverEffects();
+      }
+
+      /* ========================================================
+           12. BACKUP & RESTORE
+           ======================================================== */
+      document
+        .getElementById("export-json-btn")
+        .addEventListener("click", () => {
+          const dataStr =
+            "data:text/json;charset=utf-8," +
+            encodeURIComponent(JSON.stringify(appState, null, 2));
+          const downloadAnchor = document.createElement("a");
+          downloadAnchor.setAttribute("href", dataStr);
+          downloadAnchor.setAttribute(
+            "download",
+            `portfolio-backup-${Date.now()}.json`,
+          );
+          document.body.appendChild(downloadAnchor);
+          downloadAnchor.click();
+          downloadAnchor.remove();
+          showToast(
+            "Export Berhasil",
+            "Cadangan JSON portofolio telah diunduh.",
+          );
+        });
+
+      document
+        .getElementById("import-json-input")
+        .addEventListener("change", (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              try {
+                const parsed = JSON.parse(event.target.result);
+                if (parsed.profile && parsed.projects) {
+                  appState = parsed;
+                  saveState();
+                  renderAll();
+                  showToast(
+                    "Import Berhasil",
+                    "Seluruh data portofolio & lagu berhasil dipulihkan.",
+                  );
+                } else {
+                  showToast(
+                    "Format Salah",
+                    "File JSON tidak cocok dengan struktur portofolio.",
+                  );
+                }
+              } catch (err) {
+                showToast("Error", "Gagal memproses file JSON.");
+              }
+            };
+            reader.readAsText(file);
+          }
+        });
+
+      document
+        .getElementById("reset-all-data-btn")
+        .addEventListener("click", () => {
+          appState = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+          saveState();
+          renderAll();
+          showToast("Reset Berhasil", "Data kembali ke pengaturan awal.");
+        });
+
+      /* ========================================================
+           13. DYNAMIC TYPING & FORM HANDLERS
+           ======================================================== */
+      const typingElement = document.getElementById("typing-text");
+      let roleIdx = 0;
+      let charIdx = 0;
+      let isDeleting = false;
+
+      function typeLoop() {
+        const currentRoles = appState.profile.roles || ["Full-Stack Developer"];
+        const currentRole = currentRoles[roleIdx % currentRoles.length];
+
+        if (isDeleting) {
+          typingElement.textContent = currentRole.substring(0, charIdx - 1);
+          charIdx--;
+        } else {
+          typingElement.textContent = currentRole.substring(0, charIdx + 1);
+          charIdx++;
+        }
+
+        let typeSpeed = isDeleting ? 38 : 80;
+
+        if (!isDeleting && charIdx === currentRole.length) {
+          typeSpeed = 1900;
+          isDeleting = true;
+        } else if (isDeleting && charIdx === 0) {
+          isDeleting = false;
+          roleIdx = (roleIdx + 1) % currentRoles.length;
+          typeSpeed = 300;
+        }
+
+        setTimeout(typeLoop, typeSpeed);
+      }
+
+      document
+        .getElementById("copy-email-btn")
+        .addEventListener("click", () => {
+          const email = appState.profile.email;
+          const temp = document.createElement("input");
+          temp.value = email;
+          document.body.appendChild(temp);
+          temp.select();
+          document.execCommand("copy");
+          document.body.removeChild(temp);
+          showToast("Email Tersalin", `${email} disalin ke clipboard.`);
+        });
+
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+          const name = document.getElementById("form-name").value;
+          const submitBtn = document.getElementById("submit-btn");
+
+          submitBtn.innerHTML = "<span>Mengirimkan Pesan...</span>";
+          submitBtn.disabled = true;
+
+          setTimeout(() => {
+            showToast(
+              "Pesan Terkirim!",
+              `Terima kasih ${name}, pesan Anda berhasil diteruskan.`,
+            );
+            e.target.reset();
+            submitBtn.innerHTML =
+              '<span>Kirim Pesan Sekarang</span><i data-lucide="send" class="w-4 h-4"></i>';
+            submitBtn.disabled = false;
+            if (window.lucide) lucide.createIcons();
+          }, 900);
+        });
+
+      const toast = document.getElementById("toast");
+      const toastTitle = document.getElementById("toast-title");
+      const toastDesc = document.getElementById("toast-desc");
+      let toastTimeout = null;
+
+      function showToast(title, desc) {
+        clearTimeout(toastTimeout);
+        toastTitle.textContent = title;
+        toastDesc.textContent = desc;
+
+        toast.classList.remove("translate-y-24", "opacity-0");
+        toast.classList.add("translate-y-0", "opacity-100");
+
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove("translate-y-0", "opacity-100");
+          toast.classList.add("translate-y-24", "opacity-0");
+        }, 3500);
+      }
+
+      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+      const mobileNav = document.getElementById("mobile-nav");
+      mobileMenuBtn.addEventListener("click", () => {
+        mobileNav.classList.toggle("hidden");
+      });
+      document.querySelectorAll(".mobile-nav-item").forEach((item) => {
+        item.addEventListener("click", () => mobileNav.classList.add("hidden"));
+      });
+
+      window.onload = function () {
+        loadState();
+        renderAll();
+        typeLoop();
+        console.log(
+          "%c[Owner Master Console]%c Shortcut: Ctrl + Shift + B | 5x Avatar Click | PIN: " +
+            currentPin,
+          "background: #4f46e5; color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold;",
+          "color: #a5b4fc; padding-left: 8px;",
+        );
+      };
+    </script>
+  </body>
+</html>
